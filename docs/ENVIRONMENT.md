@@ -78,8 +78,9 @@ python -m pytest                  # testes (testpaths = backend/tests)
 | Frontend mobile | 2 | `cd frontend; npm start` (Expo Go, SDK 57) |
 | Testes do frontend | 2 | `cd frontend; npm test` |
 | Build web estático | 2 | `cd frontend; npm run build:web` (gera `frontend/dist`) |
-| Treino do modelo | 3 | `python -m ml.src.train` (definido na Fase 3) |
-| Avaliação do modelo | 3 | `python -m ml.src.evaluate` (definido na Fase 3) |
+| Treino do modelo | 3 | rode no Google Colab — ver `docs/ML_TRAINING_COLAB.md` |
+| Avaliação do modelo | 3 | `python -m ml.src.evaluate` (pós-treino local) |
+| Classificação | 3 | `GET/POST /api/v1/classification/*` (backend) |
 | Simulador IoT | 4 | `python -m simulator.sensors.runner` (definido na Fase 4) |
 | Portal fictício | 5 | `python -m rpa.portal.server` (definido na Fase 5) |
 | Robô RPA | 5 | `python -m rpa.bot.dispatcher` (definido na Fase 5) |
@@ -170,3 +171,19 @@ ignorado pelo git.
 **Observação:** a verificação foi feita por HTTP (servidor Metro + backend). A interação visual
 (clicar, preencher formulário) depende de um navegador/dispositivo e ficou registrada como
 validação manual pendente no relatório da fase.
+## 11. Checklist de verificação da FASE 3 (executado)
+
+| Item | Comando | Resultado real |
+|---|---|---|
+| Lint / formato | `python -m ruff check .` + `ruff format --check .` | `All checks passed!` / sem diferenças |
+| Testes backend | `python -m pytest` | `102 passed` (11 novos de classificação) |
+| Dataset (sintético) | `discover` + `split_dataset` | divisão 70/15/15 com `manifest.json` gerado |
+| Modelo | `build_model()` real | `MobileNetV2` → saída `(None, 2)`; cabeça com 2.562 parâmetros; ajuste fino libera 19 camadas |
+| Rota sem pesos | `GET /api/v1/classification/model-info` | `503` |
+| Rota com pesos (fixture) | `POST /api/v1/classification/predict` | `200` com `label`/`probabilities` |
+| Integração | ocorrência com foto preenche `model_label`/`confidence` | validado por teste |
+| Notebook | `cidade_limpa_mobilenetv2.ipynb` | 23 células, nbformat 4 |
+
+**Pendências (fora do meu controle):** executar o treino no Colab e publicar os pesos em
+`ml/models/`. Como a inferência ainda não tem pesos reais, `model_loaded` segue `false` e as
+ocorrências seguem marcadas para revisão humana — comportamento correto e progressivo.

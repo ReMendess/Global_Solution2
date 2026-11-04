@@ -1,5 +1,10 @@
 """Schemas Pydantic de entrada e saída da API."""
 
+from app.schemas.classification import (
+    ClassificationRead,
+    ModelInfoRead,
+    ModelMetricsRead,
+)
 from app.schemas.container import (
     ContainerList,
     ContainerRead,
@@ -24,11 +29,14 @@ from app.schemas.occurrence import (
 )
 
 __all__ = [
+    "ClassificationRead",
     "ContainerAlertSummary",
     "ContainerList",
     "ContainerRead",
     "DashboardSummary",
     "EnumsRead",
+    "ModelInfoRead",
+    "ModelMetricsRead",
     "NeighborhoodRanking",
     "OccurrenceCreate",
     "OccurrenceDetail",

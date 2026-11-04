@@ -205,3 +205,39 @@ autenticação real (FASE 7) fica concentrada no `api-client` e no contexto de p
 
 **Consequência:** não é necessário editar código para trocar de ambiente, e o comportamento fica
 coberto por testes unitários.
+## ADR-021 — Notebook autocontido + normalização dentro do modelo
+
+**Contexto:** o treino roda no Google Colab (ADR-013), onde o repositório privado não é acessível.
+Além disso, o backend precisa fazer inferência com os **mesmos** pixels que o treino, sem repetir
+a normalização.
+
+**Decisão:** (1) o notebook `ml/notebooks/cidade_limpa_mobilenetv2.ipynb` replica o pipeline de
+`ml/src/` de forma autocontida (mesmos hiperparâmetros e mesma ordem de classes); (2) a
+normalização para [-1, 1] (`Rescaling`) é uma **camada interna do modelo salvo**, então o backend
+envia pixels crus em [0, 255].
+
+**Consequência:** o autor treina sem clonar o repositório; e o serviço de classificação não precisa
+conhecer detalhes de pré-processamento do MobileNetV2 — basta redimensionar e passar o array.
+Risco de divergência entre notebook e `ml/src` é mitigado por estarem documentados lado a lado.
+
+## ADR-022 — Carregamento lazy e cache do modelo no backend
+
+**Contexto:** importar o TensorFlow (~1 GB de dependências já instaladas) tem custo de tempo, e o
+backend não deve pagar esse custo quando o modelo ainda não existe.
+
+**Decisão:** o serviço importa `keras` apenas quando há pesos publicados, cacheia o modelo com um
+lock de thread e invalida o cache pelo `mtime` do arquivo (novo treino → recarga automática).
+
+**Consequência:** `/health` e o restante da API seguem rápidos sem modelo; publicar novos pesos
+não exige reinício do processo. `reset_cache()` é usado nos testes.
+
+## ADR-023 — `needs_human_review` quando não há modelo
+
+**Contexto:** na FASE 1 toda ocorrência com foto ficava sinalizada para revisão porque o modelo não
+existia. Com a FASE 3, o comportamento passa a depender de existir ou não pesos publicados.
+
+**Decisão:** manter a regra existente — sem modelo, `needs_human_review=true`; com modelo, a
+revisão é determinada pela confiança versus `CONFIDENCE_THRESHOLD` (docs/BUSINESS_RULES.md §6).
+
+**Consequência:** o comportamento é progressivo e honesto: antes do treino tudo é "revisão humana";
+depois, apenas as classificações duvidosas.

@@ -100,29 +100,35 @@
 
 ---
 
-## FASE 3 — MobileNetV2 e visão computacional
+## FASE 3 — MobileNetV2 e visão computacional ✅
 
-**Escopo:** modelo realmente treinado e integrado ao backend.
+**Escopo:** pipeline de ML, notebook para o Colab e integração da inferência no backend.
 
-**Entregáveis**
+**Entregáveis (implementados)**
 
-- `ml/src/dataset.py`, `ml/src/preprocess.py`, `ml/src/train.py`, `ml/src/evaluate.py`.
-- Notebook de treinamento em `ml/notebooks/`, **executável no Google Colab** (o treino não roda na
-  máquina local — ver ADR-013).
-- Pesos em `ml/models/cidade_limpa_mobilenetv2.keras` + metadados JSON (baixados do Colab).
-- Relatório real em `ml/reports/` (accuracy, precision, recall, F1 e matriz de confusão).
-- `backend/app/services/classification_service.py` carregando os pesos.
-- Rotas `/api/v1/classification/*`.
+- `ml/src/{config,dataset,preprocess,model,evaluate,train}.py` — pipeline completo executável
+  localmente (`python -m ml.src.train`).
+- `ml/notebooks/cidade_limpa_mobilenetv2.ipynb` — notebook **autocontido** para o Google Colab
+  (seção 7 baixa os artefatos automaticamente).
+- `docs/ML_TRAINING_COLAB.md` — roteiro passo a passo para o treinamento.
+- `backend/app/services/classification_service.py` — inferência real, com cache, recarga
+  automática por mtime e carregamento lazy do TensorFlow.
+- `backend/app/schemas/classification.py` + `backend/app/api/routes/classification.py`:
+  `GET /api/v1/classification/model-info` e `POST /api/v1/classification/predict`.
 
 **Critérios de aceite**
 
-- [ ] Dataset real preparado com as classes `REGULAR` e `IRREGULAR`.
-- [ ] Treino executado e pesos salvos.
-- [ ] Métricas do relatório são resultado real do conjunto de teste.
-- [ ] `GET /api/v1/classification/model-info` retorna versão e métricas reais.
-- [ ] `POST /api/v1/classification/predict` classifica uma imagem enviada.
-- [ ] Ocorrência criada sem modelo disponível continua sendo registrada (não bloqueia).
-- [ ] Testes automatizados do serviço de classificação passando.
+- [x] Pipeline de dataset com classes `REGULAR` e `IRREGULAR` (validação e divisão reprodutível).
+- [x] Notebook de treinamento pronto e testado (build do MobileNetV2 validado com pesos ImageNet).
+- [ ] Treino executado e pesos salvos — **pendente de execução no Colab pelo autor** (ADR-013).
+- [ ] Métricas reais publicadas — **dependentes do treino acima**.
+- [x] `GET /api/v1/classification/model-info` responde `503` sem modelo e `200` com modelo.
+- [x] `POST /api/v1/classification/predict` classifica uma imagem (validado com modelo de fixture).
+- [x] Ocorrência sem modelo continua sendo registrada (não bloqueia).
+- [x] Testes automatizados do serviço de classificação passando (11 novos; 102 no total).
+
+**Resultados reais e limitações:** ver [`PHASE_3_REPORT.md`](PHASE_3_REPORT.md) e
+[`ML_TRAINING_COLAB.md`](ML_TRAINING_COLAB.md).
 
 ---
 
@@ -236,6 +242,7 @@
 | 0 | ✅ concluída | configuração de lint/pytest validada |
 | 1 | ✅ concluída | 89 passed |
 | 2 | ✅ concluída | 46 passed (Jest) |
+| 3 | ✅ concluída (inferência pronta; treino no Colab) | 102 passed |
 | 2 | ⏳ pendente | sim |
 | 3 | ⏳ pendente | sim |
 | 4 | ⏳ pendente | sim |

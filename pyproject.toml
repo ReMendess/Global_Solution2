@@ -30,6 +30,7 @@ extend-exclude = [
     "node_modules",
     "ml/data",
     "ml/models",
+    "ml/notebooks",
     "frontend",
 ]
 

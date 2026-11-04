@@ -1,8 +1,8 @@
 # API_SPEC.md — Contrato REST planejado
 
 > Contrato REST. Prefixo base: `/api/v1`. Documentação interativa gerada pelo FastAPI em `/docs`.
-> **Status:** FASE 1 implementada e verificada (`/health`, `/meta/enums`, ocorrências, contêineres,
-> sensores e dashboard). Rotas de classificação, RPA e agente entram nas fases 3, 5 e 6.
+> **Status:** FASE 1 e FASE 3 implementadas e verificadas (saúde, metadados, ocorrências,
+> contêineres, sensores, dashboard e classificação). Rotas do RPA e do agente entram nas fases 5 e 6.
 
 ## 1. Convenções
 
@@ -95,14 +95,17 @@ Erros esperados: `409` duplicidade (`dedup_hash`), `422` payload inválido, `413
 `GET /api/v1/occurrences?status=&category=&priority=&neighborhood=&limit=&offset=` → lista paginada
 com `items` e `total`.
 
-## 4. Classificação — FASE 3
+## 4. Classificação — FASE 3 ✅
 
-| Método | Rota | Descrição |
-|---|---|---|
-| `POST` | `/api/v1/classification/predict` | Classifica uma imagem isolada (não persiste ocorrência) |
-| `GET` | `/api/v1/classification/model-info` | Versão, classes e métricas reais do modelo treinado |
+| Método | Rota | Perfil | Descrição |
+|---|---|---|---|
+| `POST` | `/api/v1/classification/predict` | público | Classifica uma imagem isolada (não persiste ocorrência) |
+| `GET` | `/api/v1/classification/model-info` | público | Versão, classes e métricas **reais** do modelo treinado |
 
-Resposta de `predict`:
+`POST /api/v1/classification/predict` recebe `multipart/form-data` com o campo `image`
+(`image/jpeg` ou `image/png`, ≤ `MAX_UPLOAD_MB`).
+
+Resposta `200`:
 
 ```json
 {
@@ -114,8 +117,18 @@ Resposta de `predict`:
 }
 ```
 
-Se o modelo não estiver carregado: `503` com `detail` explicando que a FASE 3 não foi executada.
-A rota **não** é usada no fluxo de criação de ocorrência (que tolera ausência do modelo).
+`GET /api/v1/classification/model-info` devolve os metadados gerados no treinamento
+(versão, classes, `image_size` e as métricas reais calculadas no conjunto de teste).
+
+Comportamento sem modelo publicado:
+
+- `GET /model-info` → `503` com orientação para treinar e publicar os pesos;
+- `POST /predict` → `503`;
+- arquivo fora de JPEG/PNG ou ilegível → `422`;
+- arquivo acima do limite → `413`.
+
+A rota de diagnóstico **não** é usada no fluxo de criação de ocorrência: este chama o
+serviço internamente e **tolera ausência/falha do modelo** (registro nunca é bloqueado).
 
 ## 5. Contêineres e sensores — FASE 1 e 4
 

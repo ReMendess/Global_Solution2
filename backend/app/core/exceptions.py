@@ -47,3 +47,13 @@ class ForbiddenError(AppError):
 
     status_code = 403
     default_detail = "Perfil sem permissão para executar esta operação."
+
+
+class ModelUnavailableError(AppError):
+    """Modelo de visão computacional ainda não treinado/carregado."""
+
+    status_code = 503
+    default_detail = (
+        "Modelo de classificação indisponível. Treine o modelo (FASE 3) e publique os pesos "
+        "em ml/models/ antes de usar a inferência."
+    )

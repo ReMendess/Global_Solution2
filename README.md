@@ -68,8 +68,8 @@ Global_Solution2/
 ├── ml/
 │   ├── data/raw/             # dataset de entrada (não versionado)
 │   ├── data/processed/       # dataset tratado (não versionado)
-│   ├── notebooks/            # treino e avaliação
-│   ├── src/                  # pipeline reutilizável
+│   ├── notebooks/            # treino no Colab
+│   ├── src/                  # pipeline (dataset, modelo, treino, avaliação)
 │   ├── models/               # pesos e metadados (não versionados)
 │   └── reports/              # métricas, matriz de confusão (não versionado)
 ├── simulator/                # sensores virtuais de contêineres (FASE 4)
@@ -92,6 +92,8 @@ Global_Solution2/
 | [`docs/ENVIRONMENT.md`](docs/ENVIRONMENT.md) | Ambiente verificado, setup e limitações |
 | [`docs/PHASE_1_REPORT.md`](docs/PHASE_1_REPORT.md) | Resultados reais e limitações da FASE 1 |
 | [`docs/PHASE_2_REPORT.md`](docs/PHASE_2_REPORT.md) | Resultados reais e limitações da FASE 2 |
+| [`docs/ML_TRAINING_COLAB.md`](docs/ML_TRAINING_COLAB.md) | Roteiro de treino no Google Colab (FASE 3) |
+| [`docs/PHASE_3_REPORT.md`](docs/PHASE_3_REPORT.md) | Resultados reais e limitações da FASE 3 |
 
 ## 7. Como preparar o ambiente
 
@@ -130,7 +132,7 @@ python -m pytest                 # testes
 | 0 | Planejamento e estrutura | ✅ concluída |
 | 1 | Backend, banco e dados simulados | ✅ concluída |
 | 2 | Frontend Expo e dashboard | ✅ concluída |
-| 3 | MobileNetV2 e visão computacional | ⏳ pendente |
+| 3 | MobileNetV2 e visão computacional | ✅ concluída (treino no Colab) |
 | 4 | Simulador IoT | ⏳ pendente |
 | 5 | RPA Playwright | ⏳ pendente |
 | 6 | Agente conversacional | ⏳ pendente |
