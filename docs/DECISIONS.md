@@ -118,3 +118,38 @@ inglês.
 inglês.
 
 **Consequência:** consistência com o `PROJECT_CONTEXT.md` e legibilidade para o avaliador.
+## ADR-013 — Treino do modelo no Google Colab
+
+**Contexto:** o treino do MobileNetV2 em CPU, nesta máquina (Windows + Python 3.13), levaria horas
+para um número de épocas útil. O TensorFlow está instalado localmente, mas não há GPU disponível.
+
+**Decisão:** na FASE 3 será entregue o notebook e o pipeline em `ml/src/`; o **treinamento será
+executado pelo autor no Google Colab** (GPU gratuita) e os artefatos (pesos `.keras` + metadados JSON
+com métricas reais) serão baixados para `ml/models/` e `ml/reports/`.
+
+**Consequência:** o backend continua independente do ambiente de treino — apenas carrega os pesos.
+O notebook precisa ser autocontido (instalar dependências, baixar dataset, treinar, avaliar, salvar).
+Nenhuma métrica é publicada sem execução real.
+
+## ADR-014 — Perfil de acesso por cabeçalho na FASE 1
+
+**Contexto:** o desafio exige controle de acesso por perfil, mas não exige autenticação completa, e a
+FASE 6 (agente) e a FASE 2 (frontend) precisam de rotas administrativas funcionais.
+
+**Decisão:** identificar o perfil pelo cabeçalho `X-User-Role` (`CITIZEN` por padrão, `ADMIN` quando
+informado). Rotas administrativas respondem `403` sem o perfil correto.
+
+**Consequência:** sem JWT/senha nesta fase; a troca por autenticação real fica registrada para a
+FASE 7 e está concentrada em `backend/app/api/deps.py`.
+
+## ADR-015 — Flag `is_simulated` também em ocorrências
+
+**Contexto:** as ocorrências criadas pelo seed são dados de demonstração e a regra de governança
+exige identificar dados simulados (PROJECT_CONTEXT.md §12), mas `occurrences` não previa essa coluna
+no desenho inicial.
+
+**Decisão:** adicionar `is_simulated` (default `False`) em `occurrences`. Registros criados pela API
+ficam `False`; o seed marca `True`.
+
+**Consequência:** o dashboard e o agente podem distinguir demonstração de uso real. Pequena extensão
+em relação ao `DATA_MODEL.md` original, registrada aqui e no próprio documento de modelo.

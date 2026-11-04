@@ -1,17 +1,20 @@
 # API_SPEC.md — Contrato REST planejado
 
-> Contrato a ser implementado nas fases 1 a 6. Prefixo base: `/api/v1`. Documentação interativa
-> gerada pelo FastAPI em `/docs` e `/redoc`.
-> **Status:** nenhuma rota existe ainda (Fase 0).
+> Contrato REST. Prefixo base: `/api/v1`. Documentação interativa gerada pelo FastAPI em `/docs`.
+> **Status:** FASE 1 implementada e verificada (`/health`, `/meta/enums`, ocorrências, contêineres,
+> sensores e dashboard). Rotas de classificação, RPA e agente entram nas fases 3, 5 e 6.
 
 ## 1. Convenções
 
 - JSON em `snake_case` (mesmos nomes das colunas do banco).
-- Datas em ISO 8601 UTC (`2026-11-04T12:00:00Z`).
+- Datas em ISO 8601 UTC sem timezone (`2026-11-04T12:00:00`).
 - Paginação por `limit` (padrão 20, máximo 100) e `offset` (padrão 0).
 - Erros no formato padrão do FastAPI: `{"detail": "mensagem em pt-BR"}`.
-- Códigos: `200` consulta, `201` criação, `204` sem conteúdo, `400` requisição inválida,
-  `404` não encontrado, `409` conflito de regra, `422` validação, `500` erro interno.
+- Códigos: `200` consulta, `201` criação, `400` requisição inválida, `403` perfil sem permissão,
+  `404` não encontrado, `409` conflito de regra, `413` arquivo grande, `422` validação,
+  `500` erro interno.
+- **Perfil de acesso:** cabeçalho `X-User-Role` com `CITIZEN` (padrão) ou `ADMIN`. Rotas
+  administrativas exigem `ADMIN` e respondem `403` sem ele.
 
 ## 2. Saúde e metadados
 
@@ -46,9 +49,10 @@ Exemplo `GET /health`:
 | `longitude` | float | não | −180 a 180 |
 | `description` | string | não | até 1000 caracteres |
 | `reporter_name` | string | não | até 120 caracteres |
+| `reported_category` | enum | não | Categoria informada pelo cidadão; a IA confirma na FASE 3 |
 | `image` | arquivo | não | `image/jpeg` ou `image/png`, ≤ `MAX_UPLOAD_MB` |
 
-Resposta `201`:
+Resposta `201` (resumo; o corpo completo inclui `images`, `status_history` e `is_simulated`):
 
 ```json
 {
@@ -61,9 +65,29 @@ Resposta `201`:
   "confidence": 0.91,
   "needs_human_review": false,
   "model_version": "mobilenetv2-v1",
-  "created_at": "2026-11-04T12:00:00Z"
+  "is_simulated": false,
+  "images": [
+    {
+      "file_path": "5f6dae6553cf42a7be958ef98ae2002a.png",
+      "content_type": "image/png",
+      "size_bytes": 111,
+      "width": 32,
+      "height": 32,
+      "is_simulated": false
+    }
+  ],
+  "status_history": [
+    { "from_status": null, "to_status": "OPEN", "changed_by": "CITIZEN" },
+    { "from_status": "OPEN", "to_status": "CLASSIFIED", "changed_by": "SYSTEM" },
+    { "from_status": "CLASSIFIED", "to_status": "PENDING_DISPATCH", "changed_by": "SYSTEM" }
+  ]
 }
 ```
+
+Comportamento real na FASE 1 (modelo ainda inexistente): a ocorrência é gravada com
+`needs_human_review: true` e `model_label: null`. Com foto o status vai para `CLASSIFIED`; sem foto,
+permanece em `OPEN`. O status só chega a `PENDING_DISPATCH` quando a classificação existir (FASE 3)
+ou quando o administrador aprovar a revisão via `PATCH /occurrences/{id}/status`.
 
 Erros esperados: `409` duplicidade (`dedup_hash`), `422` payload inválido, `413` arquivo grande.
 

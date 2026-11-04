@@ -63,6 +63,7 @@ Relações: `1..N` com `occurrences`; `1..N` com `agent_interactions`.
 | `model_version` | String(60) | nullable | Versão dos pesos usados na inferência |
 | `dispatch_protocol` | String(60) | nullable | Protocolo devolvido pelo portal via RPA |
 | `dedup_hash` | String(64) | index | Hash de deduplicação (ver §5) |
+| `is_simulated` | Boolean | not null, default `False` | `True` para registros do seed (ADR-015) |
 | `created_at` | DateTime | not null, index | — |
 | `updated_at` | DateTime | not null | — |
 
@@ -212,10 +213,18 @@ dedup_hash = sha256(neighborhood | category | round(latitude,4) | round(longitud
 - `backend/app/db/init_db.py`: `Base.metadata.create_all(engine)` no startup da aplicação e no script
   de seed.
 - Sem Alembic (decisão A4 em [`ARCHITECTURE.md`](ARCHITECTURE.md)).
-- Seed de demonstração em `data/seed/` com `is_simulated=True` em todos os registros simulados.
+- Seed de demonstração em `backend/app/db/seed.py` (`python -m app.db.seed`), marcando
+  `is_simulated=True` em contêineres, leituras e ocorrências demonstrativas.
 
-## 8. Pendências para a FASE 1
+## 8. Pendências da FASE 1 — resolvidas na implementação
 
-1. Confirmar a regra de cálculo de prioridade (proposta em [`BUSINESS_RULES.md`](BUSINESS_RULES.md)).
-2. Definir se `users` será populado no seed (necessário para o perfil administrador demonstrativo).
-3. Validar que `dedup_hash` não gera falso positivo para ocorrências legítimas no mesmo quarteirão.
+1. **Regra de prioridade:** confirmada e implementada em
+   `backend/app/services/priority_service.py`, exatamente conforme
+   [`BUSINESS_RULES.md`](BUSINESS_RULES.md) §4 (com `HIGH_CONFIDENCE = 0.85`).
+2. **Seed de `users`:** decidido — dois perfis demonstrativos
+   (`admin@cidadelimpa.demo` / `cidadao@cidadelimpa.demo`). A autenticação é por cabeçalho
+   `X-User-Role` nesta fase (ADR-014), então `password_hash` guarda apenas um marcador.
+3. **`dedup_hash`:** validado em teste automatizado (mesmo bairro/coordenadas no mesmo dia → `409`;
+   bairro diferente → registro aceito). A janela é de 24 h e ignora ocorrências terminais.
+4. **Ocorrências com `needs_human_review`:** enquanto o modelo não existe (FASE 1), toda ocorrência
+   fica sinalizada para revisão — comportamento correto, não um defeito.

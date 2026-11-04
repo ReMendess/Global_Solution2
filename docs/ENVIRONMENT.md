@@ -71,9 +71,9 @@ python -m pytest                  # testes (testpaths = backend/tests)
 
 | Módulo | Fase | Comando (a partir da raiz) |
 |---|---|---|
-| Backend | 1 | `cd backend; uvicorn app.main:app --reload --port 8000` |
+| Backend | 1 | `cd backend; python -m uvicorn app.main:app --reload --port 8000` |
 | Docs da API | 1 | abrir `http://127.0.0.1:8000/docs` |
-| Seed de demonstração | 1 | `python -m data.seed.seed` (definido na Fase 1) |
+| Seed de demonstração | 1 | `cd backend; python -m app.db.seed` |
 | Frontend web | 2 | `cd frontend; npx expo start --web` |
 | Frontend mobile | 2 | `cd frontend; npx expo start` (Expo Go) |
 | Treino do modelo | 3 | `python -m ml.src.train` (definido na Fase 3) |
@@ -102,20 +102,26 @@ ignorado pelo git.
 | `SENSOR_INTERVAL_SECONDS` | `10` | Intervalo de telemetria |
 | `RPA_PORTAL_URL` | `http://127.0.0.1:8100` | Portal fictício |
 | `RPA_HEADLESS` | `true` | Navegador sem interface |
+| `CORS_ORIGINS` | `["*"]` | Origens liberadas (Expo web/mobile) |
 
 ## 7. Limitações conhecidas do ambiente
 
-1. **OneDrive:** o repositório está dentro de uma pasta sincronizada. O SQLite pode sofrer bloqueio
-   de arquivo durante a sincronização. Recomendação: pausar a sincronização ao rodar testes que
-   recriam o banco, ou mover o `.db` para fora do OneDrive via `DATABASE_URL` absoluto.
-2. **TensorFlow apenas em CPU:** treino do MobileNetV2 será lento; manter dataset pequeno e registrar
-   o tempo real de treino na Fase 3.
+1. **OneDrive:** o repositório está dentro de uma pasta sincronizada, o que pode bloquear o arquivo
+   SQLite durante a sincronização.
+   **Status verificado na FASE 1:** o processo `OneDrive.exe` **não estava em execução**, portanto a
+   sincronização estava parada durante o desenvolvimento e os testes.
+   Se o cliente voltar a rodar, pausar com:
+   `& "C:\Program Files\Microsoft OneDrive\OneDrive.exe" /pause`
+   Para retomar: `& "C:\Program Files\Microsoft OneDrive\OneDrive.exe" /resume`
+2. **TensorFlow apenas em CPU (treino no Google Colab):** o treino do MobileNetV2 **não será feito
+   nesta máquina**. A FASE 3 entrega o notebook e o pipeline; o treinamento será executado no Google
+   Colab (GPU) e os pesos/metadados voltam para `ml/models/`. O backend apenas carrega os pesos.
 3. **Playwright não instalado:** o download do Chromium (~150 MB) será feito na Fase 5.
-4. **Sem autenticação real nesta fase:** o controle de perfil será demonstrativo na Fase 1 e revisado
-   na Fase 7.
+4. **Sem autenticação real:** o perfil é identificado pelo cabeçalho `X-User-Role`
+   (`CITIZEN` por padrão, `ADMIN` para as rotas administrativas). Revisão prevista para a Fase 7.
 5. **Sem Docker:** a entrega é executada diretamente no host; não há containerização prevista.
-6. **Repositório git sem `remote` configurado nesta fase:** o GitHub privado será conectado quando o
-   usuário definir a URL. O commit inicial é local.
+6. **Repositório git sem `remote` configurado:** o GitHub privado será conectado quando o usuário
+   definir a URL. Os commits são locais.
 
 ## 8. Checklist de verificação da FASE 0 (executado)
 
@@ -126,3 +132,19 @@ ignorado pelo git.
 | Testes | `python -m pytest` | `42 passed in 0.11s` |
 | Versionamento | `git log --oneline` | `9cfd7b8 chore: fase 0 - estrutura do repositorio e documentacao de planejamento` |
 | Árvore de arquivos | `git status --porcelain` | vazio (nada pendente) |
+
+## 9. Checklist de verificação da FASE 1 (executado)
+
+| Item | Comando | Resultado real |
+|---|---|---|
+| Lint | `python -m ruff check .` | `All checks passed!` |
+| Formatação | `python -m ruff format --check .` | `51 files already formatted` |
+| Testes | `python -m pytest` | `89 passed` |
+| Seed | `cd backend; python -m app.db.seed` | 2 usuários, 6 contêineres, 6 leituras, 6 ocorrências |
+| API | `python -m uvicorn app.main:app --port 8000` | subiu em 127.0.0.1:8000 sem erro |
+| Health | `GET /health` | `{"status":"ok","database":"ok","model_loaded":false}` |
+| Registro | `POST /api/v1/occurrences` | `201`, protocolo `CL-2026-000007`, imagem gravada |
+| Consulta | `GET /api/v1/occurrences/protocol/{protocol}` | `200` com os dados persistidos |
+| Telemetria | `POST /api/v1/sensors/readings` (93,5%) | `201` com `alert_level: CRITICAL` |
+| Perfil | `GET /api/v1/occurrences` sem cabeçalho | `403` (regra de acesso aplicada) |
+| Dashboard | `GET /api/v1/dashboard/summary` | totais reais do banco (7 ocorrências) |

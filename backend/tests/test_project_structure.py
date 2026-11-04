@@ -36,7 +36,6 @@ DIRETORIOS_OBRIGATORIOS = [
     "rpa/screenshots",
     "rpa/reports",
     "data/uploads",
-    "data/seed",
     "docs",
 ]
 

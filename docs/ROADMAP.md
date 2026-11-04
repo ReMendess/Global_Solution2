@@ -31,35 +31,38 @@
 
 ---
 
-## FASE 1 — Backend, banco e dados simulados
+## FASE 1 — Backend, banco e dados simulados ✅
 
 **Escopo:** núcleo FastAPI funcional com persistência real em SQLite.
 
-**Entregáveis**
+**Entregáveis (implementados)**
 
 - `backend/app/main.py` com `create_app()`, CORS, handler global de exceções e `/health`.
-- `backend/app/core/`: `config.py` (`pydantic-settings`), `enums.py`, `constants.py` (limiares).
-- `backend/app/db/`: `base.py`, `session.py` (`get_db`), `init_db.py`.
+- `backend/app/core/`: `config.py` (`pydantic-settings`), `enums.py`, `constants.py`, `clock.py`,
+  `exceptions.py`.
+- `backend/app/db/`: `base.py`, `session.py` (`get_db`), `init_db.py`, `seed.py`.
 - `backend/app/models/`: as 8 entidades de `DATA_MODEL.md`.
-- `backend/app/schemas/`: entrada/saída de ocorrências, contêineres, leituras e indicadores.
+- `backend/app/schemas/`: ocorrências, contêineres, leituras, dashboard, metadados e saúde.
 - `backend/app/services/`: `occurrence_service`, `protocol_service`, `dedup_service`,
-  `container_service`, `dashboard_service`.
-- Routers: `occurrences`, `containers`, `dashboard`, `meta`, `health`.
-- Seed em `data/seed/seed.py` (contêineres e ocorrências demonstrativas marcadas como simuladas).
-- Testes em `backend/tests/`: criação de ocorrência, consulta por protocolo, filtros, deduplicação,
-  transição de status inválida, limiares de alerta e `/health`.
+  `priority_service`, `container_service`, `dashboard_service`, `storage_service`,
+  `classification_service` (stub da FASE 3).
+- Routers: `health`, `meta`, `occurrences`, `containers`, `sensors`, `dashboard`.
+- Seed em `backend/app/db/seed.py` (dados de demonstração marcados como simulados).
+- Testes em `backend/tests/`: 47 verificações da FASE 1 (89 no total do projeto).
 
 **Critérios de aceite**
 
-- [ ] `uvicorn app.main:app --reload` sobe sem erro a partir de `backend/`.
-- [ ] `GET /health` retorna `200`.
-- [ ] `POST /api/v1/occurrences` grava ocorrência + imagem + status_history e devolve protocolo.
-- [ ] `GET /api/v1/occurrences/protocol/{protocol}` recupera a ocorrência persistida.
-- [ ] Ocorrência duplicada retorna `409` com o protocolo original.
-- [ ] `GET /api/v1/dashboard/summary` reflete os dados do banco.
-- [ ] `POST /api/v1/sensors/readings` valida limiares 80/90 e atualiza o contêiner.
-- [ ] `python -m pytest` com todos os testes passando.
-- [ ] `data/cidade_limpa.db` criado e populado pelo seed.
+- [x] `python -m uvicorn app.main:app --reload` sobe sem erro a partir de `backend/`.
+- [x] `GET /health` retorna `200`.
+- [x] `POST /api/v1/occurrences` grava ocorrência + imagem + status_history e devolve protocolo.
+- [x] `GET /api/v1/occurrences/protocol/{protocol}` recupera a ocorrência persistida.
+- [x] Ocorrência duplicada retorna `409` com o protocolo original.
+- [x] `GET /api/v1/dashboard/summary` reflete os dados do banco.
+- [x] `POST /api/v1/sensors/readings` valida limiares 80/90 e atualiza o contêiner.
+- [x] `python -m pytest` com todos os testes passando (89 passed).
+- [x] `data/cidade_limpa.db` criado e populado pelo seed.
+
+**Resultados reais e limitações:** ver [`PHASE_1_REPORT.md`](PHASE_1_REPORT.md).
 
 ---
 
@@ -95,8 +98,9 @@
 **Entregáveis**
 
 - `ml/src/dataset.py`, `ml/src/preprocess.py`, `ml/src/train.py`, `ml/src/evaluate.py`.
-- Notebook de treinamento em `ml/notebooks/`.
-- Pesos em `ml/models/cidade_limpa_mobilenetv2.keras` + metadados JSON.
+- Notebook de treinamento em `ml/notebooks/`, **executável no Google Colab** (o treino não roda na
+  máquina local — ver ADR-013).
+- Pesos em `ml/models/cidade_limpa_mobilenetv2.keras` + metadados JSON (baixados do Colab).
 - Relatório real em `ml/reports/` (accuracy, precision, recall, F1 e matriz de confusão).
 - `backend/app/services/classification_service.py` carregando os pesos.
 - Rotas `/api/v1/classification/*`.
@@ -221,7 +225,7 @@
 | Fase | Status | Exige testes |
 |---|---|---|
 | 0 | ✅ concluída | configuração de lint/pytest validada |
-| 1 | ⏳ pendente | sim |
+| 1 | ✅ concluída | 89 passed |
 | 2 | ⏳ pendente | sim |
 | 3 | ⏳ pendente | sim |
 | 4 | ⏳ pendente | sim |

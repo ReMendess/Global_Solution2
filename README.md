@@ -86,6 +86,7 @@ Global_Solution2/
 | [`docs/ROADMAP.md`](docs/ROADMAP.md) | Fases 0–8 com critérios de aceite verificáveis |
 | [`docs/DECISIONS.md`](docs/DECISIONS.md) | Registro de decisões (ADRs) |
 | [`docs/ENVIRONMENT.md`](docs/ENVIRONMENT.md) | Ambiente verificado, setup e limitações |
+| [`docs/PHASE_1_REPORT.md`](docs/PHASE_1_REPORT.md) | Resultados reais e limitações da FASE 1 |
 
 ## 7. Como preparar o ambiente
 
@@ -122,7 +123,7 @@ python -m pytest                 # testes
 | Fase | Escopo | Status |
 |---|---|---|
 | 0 | Planejamento e estrutura | ✅ concluída |
-| 1 | Backend, banco e dados simulados | ⏳ pendente |
+| 1 | Backend, banco e dados simulados | ✅ concluída |
 | 2 | Frontend Expo e dashboard | ⏳ pendente |
 | 3 | MobileNetV2 e visão computacional | ⏳ pendente |
 | 4 | Simulador IoT | ⏳ pendente |
