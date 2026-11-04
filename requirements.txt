@@ -1,0 +1,33 @@
+# =====================================================================
+# Cidade Limpa — dependencias de execucao
+# Versoes fixadas conforme ambiente verificado em docs/ENVIRONMENT.md.
+# Instalar com:
+#   python -m pip install -r requirements.txt
+# =====================================================================
+
+# ---------- Backend (FASE 1) ----------
+fastapi==0.119.0
+uvicorn==0.37.0
+pydantic==2.14.1
+pydantic-settings==2.14.1
+SQLAlchemy==2.0.49
+python-multipart==0.0.20
+
+# ---------- Cliente HTTP do simulador IoT (FASE 4) ----------
+requests==2.32.5
+
+# ---------- Machine Learning / visao computacional (FASE 3) ----------
+# Ja instalado e validado neste ambiente com Python 3.13.
+tensorflow==2.20.0
+keras==3.11.3
+scikit-learn==1.8.0
+opencv-python==4.12.0.88
+pillow==11.3.0
+numpy==2.2.6
+matplotlib==3.10.6
+seaborn==0.13.2
+
+# ---------- RPA (FASE 5) ----------
+# Descomente ao iniciar a FASE 5 e execute depois:
+#   python -m playwright install chromium
+# playwright==1.49.0

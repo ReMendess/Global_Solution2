@@ -1,0 +1,61 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cidade-limpa"
+version = "0.1.0"
+description = "Cidade Limpa - Plataforma Inteligente de Monitoramento e Gestao de Residuos Urbanos (FIAP Global Solution 2026.2)"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Proprietary" }
+
+# As dependencias executaveis ficam em requirements*.txt.
+# Motivo: o projeto e um monorepo academico executado por scripts/servicos
+# distintos (backend, simulador, RPA, ML) e nao um pacote instalavel.
+dependencies = []
+
+[tool.setuptools]
+# Nada e empacotado: o arquivo existe apenas para centralizar ferramentas.
+packages = []
+
+# ---------------------------------------------------------------------
+# Ruff — lint + formatacao
+# ---------------------------------------------------------------------
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = [
+    ".venv",
+    "node_modules",
+    "ml/data",
+    "ml/models",
+    "frontend",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "C4", "SIM"]
+ignore = [
+    "E501",   # quebra de linha e tratada pelo formatador
+    "B008",   # FastAPI usa Depends() como default de argumento
+]
+
+[tool.ruff.lint.per-file-ignores]
+"backend/tests/*" = ["S101"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+# ---------------------------------------------------------------------
+# Pytest
+# ---------------------------------------------------------------------
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["backend/tests"]
+addopts = "-q --strict-markers"
+pythonpath = ["backend"]
+markers = [
+    "integration: testes que sobem a aplicacao FastAPI",
+    "unit: testes isolados de funcoes puras",
+]

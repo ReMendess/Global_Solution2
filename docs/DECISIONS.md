@@ -1,0 +1,120 @@
+# DECISIONS.md — Registro de decisões (ADRs)
+
+> Formato leve: contexto → decisão → consequência. Decisões podem ser revisadas nas fases em que o
+> tema for implementado, e a revisão deve ser registrada aqui.
+
+## ADR-001 — Monorepo por domínio
+
+**Contexto:** o projeto tem cinco módulos executáveis distintos (backend, frontend, ML, simulador,
+RPA) que precisam ser entregues juntos.
+
+**Decisão:** um único repositório com uma pasta por domínio na raiz.
+
+**Consequência:** um clone e uma avaliação. Cada módulo tem seu próprio comando de execução; não há
+pacote Python instalável nem workspace Node único nesta fase.
+
+## ADR-002 — FastAPI como núcleo único
+
+**Contexto:** o `PROJECT_CONTEXT.md` define o backend como núcleo e o frontend como consumidor
+exclusivo da API REST.
+
+**Decisão:** nenhum módulo acessa o SQLite diretamente. Simulador, RPA e agente usam HTTP ou as
+funções de serviço internas.
+
+**Consequência:** um único ponto de validação e auditoria. Custo: chamadas HTTP extras do simulador e
+do RPA.
+
+## ADR-003 — SQLite com `create_all()`, sem Alembic
+
+**Contexto:** MVP acadêmico, um único desenvolvedor, schema definido na Fase 1.
+
+**Decisão:** `Base.metadata.create_all(engine)` no startup e no seed. Alembic não é usado.
+
+**Consequência:** simplicidade alta; alterações de schema exigem recriar `data/cidade_limpa.db`.
+Se o schema mudar muito na Fase 7, reavaliar.
+
+## ADR-004 — Enums como `VARCHAR` no banco
+
+**Contexto:** o conjunto de status/categorias pode evoluir durante o projeto.
+
+**Decisão:** persistir os valores como texto e validar com `Enum` do Python/Pydantic na aplicação.
+
+**Consequência:** evita migração destrutiva no SQLite; exige validação consistente na camada de
+schema.
+
+## ADR-005 — Upload de imagem em disco
+
+**Contexto:** SQLite não é adequado para BLOBs grandes e o repositório não deve guardar imagens.
+
+**Decisão:** gravar arquivos em `UPLOAD_DIR` com nome gerado pelo servidor e persistir o caminho
+relativo.
+
+**Consequência:** `data/uploads/` fica fora do git; backup é responsabilidade do ambiente.
+
+## ADR-006 — TensorFlow 2.20 + Keras 3 no Python 3.13
+
+**Contexto:** o ambiente verificado já possui TensorFlow 2.20.0 e Keras 3.11.3 funcionando em Python
+3.13.5 (CPU).
+
+**Decisão:** usar essa combinação, fixada em `requirements.txt`, em vez de recriar um ambiente com
+versões mais antigas.
+
+**Consequência:** treino apenas em CPU (lento) → dataset pequeno e `IMAGE_SIZE` de 224×224 conforme o
+MobileNetV2. Documentar o tempo real de treino na Fase 3.
+
+## ADR-007 — Limiar de confiança configurável
+
+**Contexto:** classificação com baixa confiança deve permitir revisão humana.
+
+**Decisão:** `CONFIDENCE_THRESHOLD` em `.env`, padrão `0.70`; abaixo dele a ocorrência recebe
+`needs_human_review = true`, mas é registrada normalmente.
+
+**Consequência:** a decisão de revisão é auditável e ajustável sem alterar código.
+
+## ADR-008 — O modelo nunca bloqueia o registro
+
+**Contexto:** regra explícita do `PROJECT_CONTEXT.md` §6.
+
+**Decisão:** falha de inferência é tratada como evento tolerável: `category = OTHER`,
+`needs_human_review = true`, status segue para `PENDING_DISPATCH` (ou fica em revisão, conforme
+decisão da Fase 1).
+
+**Consequência:** a disponibilidade do registro independe do modelo; a classificação é um
+enriquecimento.
+
+## ADR-009 — Portal administrativo fictício local
+
+**Contexto:** o RPA precisa de um alvo real sem depender de sistema externo ou credenciais.
+
+**Decisão:** servir um portal HTML simples em `127.0.0.1:8100` a partir de `rpa/portal/`, com
+formulário e página de confirmação contendo o protocolo.
+
+**Consequência:** demonstração reproduzível offline; nenhuma credencial real é usada.
+
+## ADR-010 — Agente sem LLM externo
+
+**Contexto:** exigência explícita do desafio.
+
+**Decisão:** interpretação por palavras-chave/expressões regulares + regras, com ferramentas que
+consultam os serviços do backend e contexto por `session_id`.
+
+**Consequência:** comportamento determinístico e testável; limitação de vocabulário precisa ser
+documentada e respondida com mensagem de orientação.
+
+## ADR-011 — Frontend criado a partir da Fase 2
+
+**Contexto:** versões do Expo mudam com frequência e a Fase 0 não deve fixar dependências prematuras.
+
+**Decisão:** `frontend/` permanece vazio nesta fase (`create-expo-app` na Fase 2).
+
+**Consequência:** evita retrabalho de upgrade; a estrutura já está reservada no repositório.
+
+## ADR-012 — Documentação em pt-BR, código em inglês
+
+**Contexto:** o documento-base, o público e a avaliação são em português; o desafio usa enums em
+inglês.
+
+**Decisão:** textos, mensagens e docstrings em pt-BR; identificadores, tabelas, colunas e enums em
+inglês.
+
+**Consequência:** consistência com o `PROJECT_CONTEXT.md` e legibilidade para o avaliador.
