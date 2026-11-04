@@ -86,6 +86,7 @@ Global_Solution2/
 | [`docs/ROADMAP.md`](docs/ROADMAP.md) | Fases 0–8 com critérios de aceite verificáveis |
 | [`docs/DECISIONS.md`](docs/DECISIONS.md) | Registro de decisões (ADRs) |
 | [`docs/ENVIRONMENT.md`](docs/ENVIRONMENT.md) | Ambiente verificado, setup e limitações |
+
 ## 7. Como preparar o ambiente
 
 ```bash

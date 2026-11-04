@@ -13,6 +13,8 @@
 - `docs/ARCHITECTURE.md`, `docs/DATA_MODEL.md`, `docs/API_SPEC.md`, `docs/BUSINESS_RULES.md`,
   `docs/ROADMAP.md`, `docs/DECISIONS.md`, `docs/ENVIRONMENT.md`.
 - Árvore de diretórios de todos os módulos com `.gitkeep`.
+- `backend/tests/test_project_structure.py` — teste de integridade da estrutura e da documentação
+  (42 verificações parametrizadas).
 - Repositório git inicializado com commit inicial.
 
 **Critérios de aceite**
@@ -21,7 +23,7 @@
 - [x] Documentação cobre problema, stack, arquitetura, dados, API, regras e fases.
 - [x] `python -m ruff check .` sem erros.
 - [x] `python -m ruff format --check .` sem diferenças.
-- [x] `python -m pytest` executa sem falha de configuração (0 testes nesta fase — esperado).
+- [x] `python -m pytest` executa e passa (42 verificações de estrutura/documentação).
 - [x] Nenhum código de fase futura antecipado.
 - [x] Referências entre documentos funcionando.
 

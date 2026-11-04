@@ -117,11 +117,12 @@ ignorado pelo git.
 6. **Repositório git sem `remote` configurado nesta fase:** o GitHub privado será conectado quando o
    usuário definir a URL. O commit inicial é local.
 
-## 8. Checklist de verificação da FASE 0
+## 8. Checklist de verificação da FASE 0 (executado)
 
-| Item | Resultado |
-|---|---|
-| `python -m ruff check .` | executado no fechamento da fase |
-| `python -m ruff format --check .` | executado no fechamento da fase |
-| `python -m pytest` | executado no fechamento da fase |
-| `git log --oneline` | commit inicial presente |
+| Item | Comando | Resultado real |
+|---|---|---|
+| Lint | `python -m ruff check .` | `All checks passed!` |
+| Formatação | `python -m ruff format --check .` | `1 file already formatted` (sem diferenças) |
+| Testes | `python -m pytest` | `42 passed in 0.11s` |
+| Versionamento | `git log --oneline` | `9cfd7b8 chore: fase 0 - estrutura do repositorio e documentacao de planejamento` |
+| Árvore de arquivos | `git status --porcelain` | vazio (nada pendente) |
