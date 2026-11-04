@@ -132,24 +132,29 @@
 
 ---
 
-## FASE 4 — Simulador IoT
+## FASE 4 — Simulador IoT ✅
 
 **Escopo:** sensores virtuais enviando telemetria real via HTTP.
 
-**Entregáveis**
+**Entregáveis (implementados)**
 
-- `simulator/core/sensor.py` (sensor ultrassônico virtual com variação de ocupação).
-- `simulator/sensors/runner.py` (loop de envio com intervalo configurável).
-- Múltiplos sensores, cada um associado a um contêiner.
-- Modo de simulação de nível crítico.
+- `simulator/config.py` — `Settings` (pydantic-settings) e `SensorSpec` + 6 sensores padrão
+  (`SENSOR-001`…`SENSOR-006`), alinhados aos contêineres do seed.
+- `simulator/core/sensor.py` — sensor ultrassônico virtual (passeio aleatório limitado,
+  distância inversa à ocupação, payload no contrato do backend).
+- `simulator/sensors/runner.py` — CLI com `--once`, `--critical`, `--interval`, `--rounds`.
+- `simulator/README.md` — instruções de uso.
+- Testes em `simulator/tests/` (11).
 
 **Critérios de aceite**
 
-- [ ] `python -m simulator.sensors.runner` envia leituras contínuas para a API.
-- [ ] Cada leitura aparece em `GET /api/v1/containers/{code}/readings`.
-- [ ] `alert_level` corresponde aos limiares 80/90.
-- [ ] É possível forçar um sensor a nível crítico e ver o alerta `CRITICAL`.
-- [ ] Toda leitura persistida tem `is_simulated = true`.
+- [x] `python -m simulator.sensors.runner` envia leituras contínuas para a API.
+- [x] Cada leitura aparece em `GET /api/v1/containers/{code}/readings`.
+- [x] `alert_level` corresponde aos limiares 80/90 (NORMAL/HIGH/CRITICAL derivados no backend).
+- [x] `--critical` força nível crítico e o alerta `CRITICAL` é observado.
+- [x] Toda leitura persistida tem `is_simulated = true`.
+
+**Resultados reais:** ver [`PHASE_4_REPORT.md`](PHASE_4_REPORT.md).
 
 ---
 
@@ -243,6 +248,7 @@
 | 1 | ✅ concluída | 89 passed |
 | 2 | ✅ concluída | 46 passed (Jest) |
 | 3 | ✅ concluída (inferência pronta; treino no Colab) | 102 passed |
+| 4 | ✅ concluída | 113 passed |
 | 2 | ⏳ pendente | sim |
 | 3 | ⏳ pendente | sim |
 | 4 | ⏳ pendente | sim |

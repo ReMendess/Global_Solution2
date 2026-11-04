@@ -73,6 +73,9 @@ Global_Solution2/
 │   ├── models/               # pesos e metadados (não versionados)
 │   └── reports/              # métricas, matriz de confusão (não versionado)
 ├── simulator/                # sensores virtuais de contêineres (FASE 4)
+│   ├── config.py             # Settings e especificações dos sensores
+│   ├── core/sensor.py        # sensor ultrassônico virtual
+│   └── sensors/runner.py     # loop de envio + CLI
 ├── rpa/                      # robô Playwright + portal fictício (FASE 5)
 ├── data/                     # SQLite e uploads em runtime (não versionados)
 └── docs/                     # documentação do projeto
@@ -94,6 +97,7 @@ Global_Solution2/
 | [`docs/PHASE_2_REPORT.md`](docs/PHASE_2_REPORT.md) | Resultados reais e limitações da FASE 2 |
 | [`docs/ML_TRAINING_COLAB.md`](docs/ML_TRAINING_COLAB.md) | Roteiro de treino no Google Colab (FASE 3) |
 | [`docs/PHASE_3_REPORT.md`](docs/PHASE_3_REPORT.md) | Resultados reais e limitações da FASE 3 |
+| [`docs/PHASE_4_REPORT.md`](docs/PHASE_4_REPORT.md) | Resultados reais e limitações da FASE 4 |
 
 ## 7. Como preparar o ambiente
 
@@ -133,7 +137,7 @@ python -m pytest                 # testes
 | 1 | Backend, banco e dados simulados | ✅ concluída |
 | 2 | Frontend Expo e dashboard | ✅ concluída |
 | 3 | MobileNetV2 e visão computacional | ✅ concluída (treino no Colab) |
-| 4 | Simulador IoT | ⏳ pendente |
+| 4 | Simulador IoT | ✅ concluída |
 | 5 | RPA Playwright | ⏳ pendente |
 | 6 | Agente conversacional | ⏳ pendente |
 | 7 | Integração, testes e CI/CD | ⏳ pendente |

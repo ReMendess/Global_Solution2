@@ -81,7 +81,7 @@ python -m pytest                  # testes (testpaths = backend/tests)
 | Treino do modelo | 3 | rode no Google Colab — ver `docs/ML_TRAINING_COLAB.md` |
 | Avaliação do modelo | 3 | `python -m ml.src.evaluate` (pós-treino local) |
 | Classificação | 3 | `GET/POST /api/v1/classification/*` (backend) |
-| Simulador IoT | 4 | `python -m simulator.sensors.runner` (definido na Fase 4) |
+| Simulador IoT | 4 | `python -m simulator.sensors.runner` (opções: `--once`, `--critical`, `--interval`) |
 | Portal fictício | 5 | `python -m rpa.portal.server` (definido na Fase 5) |
 | Robô RPA | 5 | `python -m rpa.bot.dispatcher` (definido na Fase 5) |
 | Agente | 6 | via API (`POST /api/v1/agent/messages`) |
@@ -187,3 +187,13 @@ validação manual pendente no relatório da fase.
 **Pendências (fora do meu controle):** executar o treino no Colab e publicar os pesos em
 `ml/models/`. Como a inferência ainda não tem pesos reais, `model_loaded` segue `false` e as
 ocorrências seguem marcadas para revisão humana — comportamento correto e progressivo.
+## 12. Checklist de verificação da FASE 4 (executado)
+
+| Item | Comando | Resultado real |
+|---|---|---|
+| Lint / formato | `python -m ruff check .` + `ruff format --check .` | `All checks passed!` / sem diferenças |
+| Testes | `python -m pytest` | `113 passed` (11 do simulador) |
+| Envio normal | `python -m simulator.sensors.runner --once` | 6 leituras enviadas (NORMAL/HIGH/CRITICAL) |
+| Envio crítico | `--once --critical` | 6 leituras em CRITICAL (90–100%) |
+| Persistência | `GET /api/v1/containers/{code}/readings` | leituras presentes, com `distance_cm` e `alert_level` |
+| Dashboard | `GET /api/v1/dashboard/containers` | contêineres críticos listados em `critical_codes` |
