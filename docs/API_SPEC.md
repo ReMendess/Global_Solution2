@@ -22,6 +22,7 @@
 |---|---|---|
 | `GET` | `/health` | Status da API, versão e se o modelo está carregado |
 | `GET` | `/api/v1/meta/enums` | Valores canônicos dos enums (consumido pelo frontend) |
+| `GET` | `/uploads/{arquivo}` | Serve as imagens enviadas (`data/uploads`); usado pelo frontend |
 
 Exemplo `GET /health`:
 

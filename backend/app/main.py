@@ -9,6 +9,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 
 from app.api.routes import containers, dashboard, health, meta, occurrences, sensors
 from app.core.config import get_settings
@@ -83,6 +84,12 @@ def create_app() -> FastAPI:
     app.include_router(containers.router)
     app.include_router(sensors.router)
     app.include_router(dashboard.router)
+
+    # Imagens enviadas ficam em data/uploads (ADR-005); o frontend as carrega por URL.
+    upload_dir = settings.resolved_upload_dir
+    upload_dir.mkdir(parents=True, exist_ok=True)
+    app.mount("/uploads", StaticFiles(directory=upload_dir), name="uploads")
+
     return app
 
 

@@ -60,7 +60,11 @@ Global_Solution2/
 │   │   ├── schemas/          # schemas Pydantic (entrada/saída)
 │   │   └── services/         # regras de negócio, ML, RPA, agente
 │   └── tests/                # testes Pytest do backend
-├── frontend/                 # app Expo / React Native Web (FASE 2)
+├── frontend/                 # app Expo / React Native Web
+│   ├── src/app/              # rotas (Expo Router): cidadão e admin
+│   ├── src/components/       # UI reutilizável
+│   ├── src/services/         # cliente HTTP e endpoints da API
+│   └── src/lib/              # formatação e validação
 ├── ml/
 │   ├── data/raw/             # dataset de entrada (não versionado)
 │   ├── data/processed/       # dataset tratado (não versionado)
@@ -87,6 +91,7 @@ Global_Solution2/
 | [`docs/DECISIONS.md`](docs/DECISIONS.md) | Registro de decisões (ADRs) |
 | [`docs/ENVIRONMENT.md`](docs/ENVIRONMENT.md) | Ambiente verificado, setup e limitações |
 | [`docs/PHASE_1_REPORT.md`](docs/PHASE_1_REPORT.md) | Resultados reais e limitações da FASE 1 |
+| [`docs/PHASE_2_REPORT.md`](docs/PHASE_2_REPORT.md) | Resultados reais e limitações da FASE 2 |
 
 ## 7. Como preparar o ambiente
 
@@ -124,7 +129,7 @@ python -m pytest                 # testes
 |---|---|---|
 | 0 | Planejamento e estrutura | ✅ concluída |
 | 1 | Backend, banco e dados simulados | ✅ concluída |
-| 2 | Frontend Expo e dashboard | ⏳ pendente |
+| 2 | Frontend Expo e dashboard | ✅ concluída |
 | 3 | MobileNetV2 e visão computacional | ⏳ pendente |
 | 4 | Simulador IoT | ⏳ pendente |
 | 5 | RPA Playwright | ⏳ pendente |

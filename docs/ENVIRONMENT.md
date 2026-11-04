@@ -74,8 +74,10 @@ python -m pytest                  # testes (testpaths = backend/tests)
 | Backend | 1 | `cd backend; python -m uvicorn app.main:app --reload --port 8000` |
 | Docs da API | 1 | abrir `http://127.0.0.1:8000/docs` |
 | Seed de demonstração | 1 | `cd backend; python -m app.db.seed` |
-| Frontend web | 2 | `cd frontend; npx expo start --web` |
-| Frontend mobile | 2 | `cd frontend; npx expo start` (Expo Go) |
+| Frontend web | 2 | `cd frontend; npm run web` (abre em `http://localhost:8081`) |
+| Frontend mobile | 2 | `cd frontend; npm start` (Expo Go, SDK 57) |
+| Testes do frontend | 2 | `cd frontend; npm test` |
+| Build web estático | 2 | `cd frontend; npm run build:web` (gera `frontend/dist`) |
 | Treino do modelo | 3 | `python -m ml.src.train` (definido na Fase 3) |
 | Avaliação do modelo | 3 | `python -m ml.src.evaluate` (definido na Fase 3) |
 | Simulador IoT | 4 | `python -m simulator.sensors.runner` (definido na Fase 4) |
@@ -148,3 +150,23 @@ ignorado pelo git.
 | Telemetria | `POST /api/v1/sensors/readings` (93,5%) | `201` com `alert_level: CRITICAL` |
 | Perfil | `GET /api/v1/occurrences` sem cabeçalho | `403` (regra de acesso aplicada) |
 | Dashboard | `GET /api/v1/dashboard/summary` | totais reais do banco (7 ocorrências) |
+## 10. Checklist de verificação da FASE 2 (executado)
+
+| Item | Comando | Resultado real |
+|---|---|---|
+| Instalação das dependências | `cd frontend; npm install` + `npx expo install ...` | 574 + 107 + 324 pacotes instalados |
+| Versões do frontend | `package.json` | Expo SDK 57.0.31, React 19.2.3, RN 0.86.3, expo-router 57.0.29 |
+| Tipos | `cd frontend; npm run typecheck` | sem erros |
+| Testes | `cd frontend; npm test` | `46 passed` (6 suítes) |
+| Build web | `npm run build:web` | `Web Bundled 21830ms` (808 módulos), `Exported: dist` |
+| Servidor web | `npm run web` | `Waiting on http://localhost:8081` |
+| Página inicial | `GET http://localhost:8081/` | `200`, 1.291 bytes (HTML do Expo Router) |
+| Bundle | `GET /node_modules/expo-router/entry.bundle?...` | `200`, 4.165.308 bytes; contém `Cidade Limpa`, `Registrar ocorrência`, `dashboard/summary`, `X-User-Role` |
+| CORS (preflight) | `OPTIONS /api/v1/meta/enums` com `Origin: http://localhost:8081` | `200`, `access-control-allow-origin: *` |
+| Integração real | `GET /api/v1/dashboard/summary` com `X-User-Role: ADMIN` | `200` com 7 ocorrências do banco |
+| Imagens | `GET /uploads/{arquivo}` | `200` com `image/png` (novo teste no backend) |
+| Backend após a fase | `python -m pytest` | `91 passed` |
+
+**Observação:** a verificação foi feita por HTTP (servidor Metro + backend). A interação visual
+(clicar, preencher formulário) depende de um navegador/dispositivo e ficou registrada como
+validação manual pendente no relatório da fase.

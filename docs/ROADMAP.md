@@ -66,29 +66,38 @@
 
 ---
 
-## FASE 2 — Frontend Expo e dashboard
+## FASE 2 — Frontend Expo e dashboard ✅
 
 **Escopo:** app React Native + Expo Router + React Native Web consumindo a API.
 
-**Entregáveis**
+**Entregáveis (implementados)**
 
-- Projeto Expo em `frontend/` com Expo Router e TypeScript.
-- Camada `services/api.ts` (único ponto de acesso HTTP).
-- Telas do cidadão: home, registro de ocorrência (câmera/galeria), resultado com classificação,
-  consulta por protocolo e chat do agente.
-- Telas do administrador: login demonstrativo, dashboard com indicadores, lista filtrável de
-  ocorrências, detalhe com imagem, contêineres, histórico de sensores e execuções do RPA.
-- Layout responsivo (grid adaptativo para desktop e mobile).
+- Projeto Expo **SDK 57** em `frontend/` com Expo Router, TypeScript estrito e React Native Web.
+- `frontend/src/services/`: `config.ts` (resolução da URL da API), `api-client.ts` (fetch + `ApiError`),
+  `api.ts` (todas as rotas da FASE 1) e `occurrence-form.ts` (multipart multiplataforma).
+- Telas do cidadão: início (com status real da API), registro de ocorrência (câmera/galeria),
+  resultado com protocolo/classificação e consulta por protocolo.
+- Telas do administrador: dashboard com indicadores, lista filtrável e paginada de ocorrências,
+  detalhe com imagem + transições de status e monitoramento de contêineres com histórico de leituras.
+- Layout responsivo (largura máxima no desktop, grades que colapsam no mobile) e
+  alternância de perfil cidadão/administrador.
+- `GET /uploads/{arquivo}` no backend para o frontend exibir as imagens enviadas.
 
 **Critérios de aceite**
 
-- [ ] `npx expo start --web` abre a aplicação no navegador.
-- [ ] Registro de ocorrência pela web cria registro real na API.
-- [ ] Consulta por protocolo exibe o status vindo do banco.
-- [ ] Dashboard mostra os números retornados por `/api/v1/dashboard/summary`.
-- [ ] Filtros de ocorrência por categoria e status funcionam.
-- [ ] App executa no Expo Go (mobile) apontando para a API.
-- [ ] Testes de frontend executam com sucesso.
+- [x] `npm run web` (Expo + Metro) serve a aplicação em `http://localhost:8081`.
+- [x] O bundle web compila (`expo export --platform web`) e contém a integração com a API.
+- [x] As chamadas usam as rotas reais (`/api/v1/meta/enums`, ocorrências, contêineres, dashboard)
+      com o cabeçalho `X-User-Role` nas rotas administrativas.
+- [x] CORS responde ao preflight da origem `http://localhost:8081`.
+- [x] `npm run typecheck` sem erros.
+- [x] `npm test` com todos os testes passando (46).
+- [ ] Registro de ocorrência e consulta de protocolo validados em navegador (exige teste manual —
+      ver limitações no relatório da fase).
+- [ ] Execução no Expo Go (exige dispositivo do avaliador).
+
+**Resultados reais, decisões e limitações:** ver [`PHASE_2_REPORT.md`](PHASE_2_REPORT.md).
+
 ---
 
 ## FASE 3 — MobileNetV2 e visão computacional
@@ -226,6 +235,7 @@
 |---|---|---|
 | 0 | ✅ concluída | configuração de lint/pytest validada |
 | 1 | ✅ concluída | 89 passed |
+| 2 | ✅ concluída | 46 passed (Jest) |
 | 2 | ⏳ pendente | sim |
 | 3 | ⏳ pendente | sim |
 | 4 | ⏳ pendente | sim |

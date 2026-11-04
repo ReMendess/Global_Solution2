@@ -153,3 +153,55 @@ ficam `False`; o seed marca `True`.
 
 **Consequência:** o dashboard e o agente podem distinguir demonstração de uso real. Pequena extensão
 em relação ao `DATA_MODEL.md` original, registrada aqui e no próprio documento de modelo.
+## ADR-016 — Expo SDK 57 (compatibilidade com Expo Go)
+
+**Contexto:** o CLI do Expo oferece SDK 58 como "Latest" e SDK 57 como a versão suportada pelo
+**Expo Go** disponível nas lojas. Um critério de aceite da FASE 2 é executar o app no Expo Go.
+
+**Decisão:** fixar o projeto em **SDK 57** (`expo ~57.0.31`, React 19.2.3, RN 0.86.3, expo-router
+57.0.29), criado com `create-expo-app --template expo-template-blank-typescript@sdk-57`.
+
+**Consequência:** o app roda no Expo Go sem build nativo. Ao atualizar de SDK no futuro, validar
+antes o suporte do Expo Go.
+
+## ADR-017 — Template enxuto, sem demo de UI
+
+**Contexto:** o template `default` do SDK 57 inclui `@expo/ui`, glass effects, splash animado e
+componentes de demonstração que não fazem parte do escopo.
+
+**Decisão:** usar `blank-typescript` e construir apenas os componentes necessários
+(`screen`, `card`, `badge`, `button`, `text-field`, `choice-chips`, `states`).
+
+**Consequência:** menos dependências nativas, bundle menor e código próprio integralmente
+compreendido e testável.
+
+## ADR-018 — Imagens servidas por `/uploads`
+
+**Contexto:** o backend grava as fotos em `data/uploads` (ADR-005) e devolve apenas o caminho
+relativo. O desafio exige que o administrador **visualize as imagens**.
+
+**Decisão:** montar `StaticFiles` em `/uploads` no FastAPI apontando para `UPLOAD_DIR` — sem rota por
+ocorrência e sem expor caminho absoluto do servidor.
+
+**Consequência:** o frontend monta a URL com `buildUploadUrl(file_path)`. Em produção seria
+necessário controle de acesso a essas imagens (registrado como limitação).
+
+## ADR-019 — Perfil demonstrativo no cliente
+
+**Contexto:** as rotas administrativas exigem `X-User-Role: ADMIN` (ADR-014), mas não há login.
+
+**Decisão:** manter o perfil em um contexto React (`ProfileProvider`) com botão de alternância,
+enviando o cabeçalho em todas as chamadas administrativas.
+
+**Consequência:** a troca de perfil é imediata e explícita na interface; a substituição por
+autenticação real (FASE 7) fica concentrada no `api-client` e no contexto de perfil.
+
+## ADR-020 — URL da API resolvida em runtime
+
+**Contexto:** a mesma aplicação roda na web (localhost), no Expo Go (IP da rede local) e no emulador.
+
+**Decisão:** `resolveApiBaseUrl()` usa `EXPO_PUBLIC_API_URL` quando definido, senão o host do Metro
+(`Constants.expoConfig.hostUri`) com a porta 8000, e por último `http://127.0.0.1:8000`.
+
+**Consequência:** não é necessário editar código para trocar de ambiente, e o comportamento fica
+coberto por testes unitários.
