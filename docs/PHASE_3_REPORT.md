@@ -69,7 +69,35 @@ o caminho real de carregamento → pré-processamento → inferência. Não é o
 - [x] `GET /model-info` e `POST /predict` implementados (200 com modelo, 503 sem)
 - [x] Registro de ocorrência segue tolerante à ausência/falha do modelo
 - [x] Testes automatizados de classificação passando
-- [ ] **Pesos treinados e métricas reais publicados** — pendente da execução no Colab pelo autor
+- [x] **Pesos treinados e métricas reais publicados** — modelo colocado em `ml/models/` e validado
+
+## 5b. Atualização pós-treino (modelo publicado)
+
+O autor executou o treino no Colab e publicou os artefatos em `ml/models/`. Validação local realizada:
+
+| Verificação | Resultado real |
+|---|---|
+| `is_model_available()` | `True` |
+| `model_version` | `mobilenetv2-v1` |
+| Classes | `["REGULAR", "IRREGULAR"]` |
+| **Acurácia (teste)** | **0.7273** |
+| Matriz de confusão (33 imagens) | `[[10, 6], [3, 14]]` |
+| `GET /health` | `"model_loaded": true` |
+| `classify_bytes(imagem)` | `REGULAR`, confiança 0.8574, `probabilities` coerentes |
+
+**Ajuste de versão necessário:** o modelo foi salvo com Keras 3.13.2 (Colab) e o ambiente local
+tinha Keras 3.11.3. O arquivo `.keras` continha a chave `quantization_config`, desconhecida no 3.11.
+A solução foi alinhar o ambiente local para **keras==3.13.2** (mantendo TF 2.20), atualizando
+`requirements.txt` e `docs/ENVIRONMENT.md`. **Não houve mudança de código no serviço** — o
+carregamento passou a funcionar apenas com a versão correta.
+
+Também isolamos os testes automatizados do modelo real (o `conftest.py` agora aponta `MODEL_PATH`
+para um caminho inexistente por padrão), garantindo que a suíte seja determinística
+independentemente de existir ou não um modelo em `ml/models/`.
+
+> A acurácia de 0.7273 é **resultado real** do dataset usado pelo autor (103/104 imagens por
+> classe, mais o conjunto de teste de 33). Ela está abaixo do limiar "desejável" de 0.75, o que é
+> esperado para um dataset pequeno — nenhuma métrica foi ajustada ou inventada.
 
 ## 6. Limitações identificadas
 

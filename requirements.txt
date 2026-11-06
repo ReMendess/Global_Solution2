@@ -19,7 +19,10 @@ requests==2.32.5
 # ---------- Machine Learning / visao computacional (FASE 3) ----------
 # Ja instalado e validado neste ambiente com Python 3.13.
 tensorflow==2.20.0
-keras==3.11.3
+# Keras alinhado a versao usada no treino (Google Colab). O modelo .keras salvo
+# com Keras 3.13 usa chaves (ex.: quantization_config) desconhecidas no 3.11,
+# por isso o ambiente local usa 3.13.2 para carregar os pesos treinados.
+keras==3.13.2
 scikit-learn==1.8.0
 opencv-python==4.12.0.88
 pillow==11.3.0

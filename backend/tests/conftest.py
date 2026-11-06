@@ -16,6 +16,11 @@ os.environ["APP_ENV"] = "test"
 os.environ["DATABASE_URL"] = f"sqlite:///{(_TMP_ROOT / 'test.db').as_posix()}"
 os.environ["UPLOAD_DIR"] = str(_TMP_ROOT / "uploads")
 os.environ["CONFIDENCE_THRESHOLD"] = "0.70"
+# Isola os testes do modelo real publicado em ml/models/: por padrão não há pesos,
+# para que os testes sejam determinísticos. Os testes de classificação publicam um
+# modelo próprio via fixture (monkeypatch em settings).
+os.environ["MODEL_PATH"] = str(_TMP_ROOT / "modelo_inexistente.keras")
+os.environ["MODEL_METADATA_PATH"] = str(_TMP_ROOT / "modelo_inexistente.metadata.json")
 
 import pytest  # noqa: E402
 from app.core.enums import AlertLevel  # noqa: E402

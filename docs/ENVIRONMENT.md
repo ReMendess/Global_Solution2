@@ -31,7 +31,7 @@
 | pytest | 9.1.1 |
 | ruff | 0.14.0 |
 | tensorflow | 2.20.0 |
-| keras | 3.11.3 |
+| keras | 3.13.2 |
 | scikit-learn | 1.8.0 |
 | opencv-python | 4.12.0.88 |
 | pillow | 11.3.0 |
