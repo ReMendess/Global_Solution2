@@ -228,7 +228,7 @@ Exemplo de `summary`:
 }
 ```
 
-## 8. Agente conversacional — FASE 6
+## 8. Agente conversacional — FASE 6 ✅
 
 | Método | Rota | Descrição |
 |---|---|---|

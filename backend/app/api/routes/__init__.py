@@ -1,6 +1,7 @@
 """Routers da API REST."""
 
 from app.api.routes import (
+    agent,
     classification,
     containers,
     dashboard,
@@ -12,6 +13,7 @@ from app.api.routes import (
 )
 
 __all__ = [
+    "agent",
     "classification",
     "containers",
     "dashboard",

@@ -12,6 +12,7 @@ from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 from app.api.routes import (
+    agent,
     classification,
     containers,
     dashboard,
@@ -95,6 +96,7 @@ def create_app() -> FastAPI:
     app.include_router(dashboard.router)
     app.include_router(classification.router)
     app.include_router(rpa.router)
+    app.include_router(agent.router)
 
     # Imagens enviadas ficam em data/uploads (ADR-005); o frontend as carrega por URL.
     upload_dir = settings.resolved_upload_dir

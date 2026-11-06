@@ -243,6 +243,27 @@ revisão é determinada pela confiança versus `CONFIDENCE_THRESHOLD` (docs/BUSI
 depois, apenas as classificações duvidosas.
 ## ADR-024 — Portal administrativo fictício sem dependência externa
 
+## ADR-026 — Agente por regras, sem LLM externo
+
+**Contexto:** o desafio exige um agente baseado em interpretação de intenções e ferramentas, sem
+depender de modelo externo.
+
+**Decisão:** interpretar as intenções por palavras-chave/expressões regulares (`intent_parser.py`) e
+executar ferramentas que leem serviços reais (`tools.py`). O contexto por sessão fica em memória
+(`session.py`). Quando falta dado, o agente pede; quando não acha, responde "não encontrado".
+
+**Consequência:** comportamento determinístico e testável, sem custo nem dependência de rede;
+vocabulário limitado, compensado por resposta de orientação clara.
+
+## ADR-027 — Histórico do agente como auditoria
+
+**Contexto:** §12 do desafio exige registrar as execuções/interações.
+
+**Decisão:** persistir cada mensagem em `agent_interactions` (com intenção, ferramenta, resposta e
+payload resumido em JSON), independentemente de a intenção ter sido reconhecida.
+
+**Consequência:** o histórico de sessão (`GET /api/v1/agent/sessions/{id}`) reflete exatamente o que
+o agente respondeu, sem reconstruir respostas a partir de estado mutável.
 **Contexto:** o RPA precisa de um alvo real e reproduzível, sem depender de sistema externo ou de
 formulário público (que mudaria de DOM sem aviso).
 

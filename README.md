@@ -101,6 +101,7 @@ Global_Solution2/
 | [`docs/PHASE_3_REPORT.md`](docs/PHASE_3_REPORT.md) | Resultados reais e limitações da FASE 3 |
 | [`docs/PHASE_4_REPORT.md`](docs/PHASE_4_REPORT.md) | Resultados reais e limitações da FASE 4 |
 | [`docs/PHASE_5_REPORT.md`](docs/PHASE_5_REPORT.md) | Resultados reais e limitações da FASE 5 |
+| [`docs/PHASE_6_REPORT.md`](docs/PHASE_6_REPORT.md) | Resultados reais e limitações da FASE 6 |
 
 ## 7. Como preparar o ambiente
 
@@ -142,7 +143,7 @@ python -m pytest                 # testes
 | 3 | MobileNetV2 e visão computacional | ✅ concluída (treino no Colab) |
 | 4 | Simulador IoT | ✅ concluída |
 | 5 | RPA Playwright | ✅ concluída |
-| 6 | Agente conversacional | ⏳ pendente |
+| 6 | Agente conversacional | ✅ concluída |
 | 7 | Integração, testes e CI/CD | ⏳ pendente |
 | 8 | Documentação e apresentação | ⏳ pendente |
 

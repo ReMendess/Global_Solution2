@@ -1,5 +1,11 @@
 """Schemas Pydantic de entrada e saída da API."""
 
+from app.schemas.agent import (
+    AgentInteractionRead,
+    AgentMessageCreate,
+    AgentMessageRead,
+    AgentSessionRead,
+)
 from app.schemas.classification import (
     ClassificationRead,
     ModelInfoRead,
@@ -36,6 +42,10 @@ from app.schemas.rpa import (
 )
 
 __all__ = [
+    "AgentInteractionRead",
+    "AgentMessageCreate",
+    "AgentMessageRead",
+    "AgentSessionRead",
     "ClassificationRead",
     "ContainerAlertSummary",
     "ContainerList",

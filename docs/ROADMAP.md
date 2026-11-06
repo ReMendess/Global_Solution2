@@ -186,25 +186,32 @@
 
 ---
 
-## FASE 6 — Agente conversacional
+## FASE 6 — Agente conversacional ✅
 
 **Escopo:** agente baseado em intenções com ferramentas sobre dados reais.
 
-**Entregáveis**
+**Entregáveis (implementados)**
 
-- `backend/app/services/agent/`: `intent_parser.py`, `tools.py`, `session.py`, `agent.py`.
-- Rotas `/api/v1/agent/*`.
-- Testes de intenção, de ferramenta e de resposta para intenção desconhecida.
+- `backend/app/services/agent/intent_parser.py` — interpretação por regras/palavras-chave (sem LLM).
+- `backend/app/services/agent/tools.py` — 5 ferramentas sobre serviços reais:
+  `consultar_ocorrencia`, `consultar_container`, `listar_pontos_coleta`, `criar_ocorrencia`,
+  `consultar_indicadores`.
+- `backend/app/services/agent/session.py` — contexto por sessão em memória (última ocorrência/contêiner).
+- `backend/app/services/agent/agent.py` — orquestração + persistência em `agent_interactions`.
+- `backend/app/api/routes/agent.py` — `POST /api/v1/agent/messages` e `GET /api/v1/agent/sessions/{id}`.
+- Testes: `backend/tests/test_agent_parser.py` (10) e `backend/tests/test_agent.py` (8).
 
 **Critérios de aceite**
 
-- [ ] Pergunta de status por protocolo retorna dados reais do banco.
-- [ ] Pergunta sobre nível de contêiner retorna a última leitura persistida.
-- [ ] Pergunta sobre indicadores retorna o resumo real.
-- [ ] `criar_ocorrencia` cria registro real e devolve protocolo.
-- [ ] Pergunta não reconhecida recebe orientação, sem invenção de dados.
-- [ ] Contexto de sessão mantém a última ocorrência citada.
-- [ ] Interações persistidas em `agent_interactions`.
+- [x] Pergunta de status por protocolo retorna dados reais do banco.
+- [x] Pergunta sobre nível de contêiner retorna a última leitura persistida.
+- [x] Pergunta sobre indicadores retorna o resumo real.
+- [x] `criar_ocorrencia` cria registro real e devolve protocolo.
+- [x] Pergunta não reconhecida recebe orientação, sem invenção de dados.
+- [x] Contexto de sessão mantém a última ocorrência citada.
+- [x] Interações persistidas em `agent_interactions`.
+
+**Resultados reais:** ver [`PHASE_6_REPORT.md`](PHASE_6_REPORT.md).
 
 ---
 
@@ -255,6 +262,7 @@
 | 3 | ✅ concluída (inferência pronta; treino no Colab) | 102 passed |
 | 4 | ✅ concluída | 113 passed |
 | 5 | ✅ concluída | 129 passed |
+| 6 | ✅ concluída | 147 passed |
 | 2 | ⏳ pendente | sim |
 | 3 | ⏳ pendente | sim |
 | 4 | ⏳ pendente | sim |

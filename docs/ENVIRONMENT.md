@@ -84,7 +84,7 @@ python -m pytest                  # testes (testpaths = backend/tests)
 | Simulador IoT | 4 | `python -m simulator.sensors.runner` (opções: `--once`, `--critical`, `--interval`) |
 | Portal fictício | 5 | `python -m rpa.portal.server --port 8100` |
 | Robô RPA | 5 | `python -m rpa.bot.dispatcher` (opções: `--max-demands`) |
-| Agente | 6 | via API (`POST /api/v1/agent/messages`) |
+| Agente | 6 | `POST /api/v1/agent/messages` (backend) |
 
 Portas reservadas: **8000** (API), **8100** (portal fictício), **8081** (Metro/Expo).
 
@@ -207,3 +207,16 @@ ocorrências seguem marcadas para revisão humana — comportamento correto e pr
 | Portal | `python -m rpa.portal.server --port 8100` | GET formulário + POST com `PORTAL-XXXX` |
 | E2E | robô processa a fila | ocorrência `PENDING_DISPATCH` → `DISPATCHED` (`PORTAL-0001`) |
 | Duplicidade | 2ª `SUCCESS` | `409` (teste automatizado) |
+## 14. Checklist de verificação da FASE 6 (executado)
+
+| Item | Comando | Resultado real |
+|---|---|---|
+| Lint / formato | `python -m ruff check .` + `ruff format --check .` | `All checks passed!` / sem diferenças |
+| Testes | `python -m pytest` | `147 passed` (18 do agente) |
+| Criação pelo chat | `registrar ocorrência … em Perdizes` | `CL-2026-000010`, `OVERFLOW`, `HIGH` |
+| Continuidade | `e o status?` | usou contexto → protocolo da última ocorrência |
+| Contêiner | `nível do contêiner CONT-001` | `96,8%`, `CRITICAL` |
+| Pontos de coleta | `quais são os pontos de coleta?` | 6 pontos |
+| Indicadores | `quantas ocorrências existem?` | 10 (real do banco) |
+| Desconhecida | `qual a previsão do tempo?` | orientação, sem invenção |
+| Histórico | `GET /api/v1/agent/sessions/sess-demo` | 6 interações persistidas |
