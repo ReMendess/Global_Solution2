@@ -27,6 +27,13 @@ from app.schemas.occurrence import (
     OccurrenceStatusUpdate,
     StatusHistoryRead,
 )
+from app.schemas.rpa import (
+    RPAExecutionCreate,
+    RPAExecutionList,
+    RPAExecutionRead,
+    RPAQueueItem,
+    RPAQueueList,
+)
 
 __all__ = [
     "ClassificationRead",
@@ -44,6 +51,11 @@ __all__ = [
     "OccurrenceList",
     "OccurrenceRead",
     "OccurrenceStatusUpdate",
+    "RPAExecutionCreate",
+    "RPAExecutionList",
+    "RPAExecutionRead",
+    "RPAQueueItem",
+    "RPAQueueList",
     "SensorReadingCreate",
     "SensorReadingList",
     "SensorReadingRead",

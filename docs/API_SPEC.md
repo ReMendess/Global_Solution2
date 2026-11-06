@@ -158,11 +158,11 @@ Resposta `201`:
   "measured_at": "2026-11-04T12:00:00Z"
 }
 ```
-## 6. RPA — FASE 5
+## 6. RPA — FASE 5 ✅
 
 | Método | Rota | Perfil | Descrição |
 |---|---|---|---|
-| `GET` | `/api/v1/rpa/queue` | interno | Demandas elegíveis (`PENDING_DISPATCH`) |
+| `GET` | `/api/v1/rpa/queue` | interno | Demandas elegíveis (`PENDING_DISPATCH`), ordenadas por prioridade |
 | `POST` | `/api/v1/rpa/executions` | interno | Registra o resultado da automação |
 | `GET` | `/api/v1/rpa/executions` | admin | Histórico de execuções |
 
@@ -198,8 +198,14 @@ Resposta `201`:
 ```
 
 - `SUCCESS` → ocorrência vai para `DISPATCHED` e grava `dispatch_protocol`.
-- `FAILED` → ocorrência permanece `PENDING_DISPATCH` e pode ser reprocessada.
+- `FAILED` → ocorrência permanece `PENDING_DISPATCH` e pode ser reprocessada (o `attempt`
+  é incrementado a cada tentativa).
 - Segunda execução `SUCCESS` para a mesma ocorrência → `409`.
+- `SUCCESS` sem `portal_protocol` → `409`.
+- A ocorrência sai da fila assim que é despachada (deixa de estar em `PENDING_DISPATCH`).
+
+A fila também devolve o `status` da ocorrência e as execuções devolvem `attempt`, `started_at`,
+`finished_at` e `duration_ms`.
 
 ## 7. Indicadores — FASE 1 (consumo do dashboard na FASE 2)
 

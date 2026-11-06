@@ -241,3 +241,26 @@ revisão é determinada pela confiança versus `CONFIDENCE_THRESHOLD` (docs/BUSI
 
 **Consequência:** o comportamento é progressivo e honesto: antes do treino tudo é "revisão humana";
 depois, apenas as classificações duvidosas.
+## ADR-024 — Portal administrativo fictício sem dependência externa
+
+**Contexto:** o RPA precisa de um alvo real e reproduzível, sem depender de sistema externo ou de
+formulário público (que mudaria de DOM sem aviso).
+
+**Decisão:** servir um portal próprio em `rpa/portal/server.py` usando apenas a stdlib
+(`http.server`), com formulário HTML e protocolo sequencial `PORTAL-XXXX`. Os seletores ficam
+centralizados em `rpa/bot/selectors.py`.
+
+**Consequência:** demonstração determinística e testável; nenhuma credencial real; o robô nunca
+depende de um DOM externo que não controlamos.
+
+## ADR-025 — Robô com funções puras testáveis
+
+**Contexto:** automação de navegador é difícil de testar de forma determinística sem subir o
+navegador.
+
+**Decisão:** separar a lógica pura (`build_form_data`, `parse_portal_protocol`) e a interação com a
+página (`dispatch_one`, que recebe um objeto com a mesma interface da `Page`). O teste usa um
+substituto in-memory.
+
+**Consequência:** o comportamento de preenchimento/captura é coberto por testes rápidos e
+determinísticos, sem depender de um Chromium nos testes.

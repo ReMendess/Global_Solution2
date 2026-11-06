@@ -31,6 +31,6 @@ matplotlib==3.10.6
 seaborn==0.13.2
 
 # ---------- RPA (FASE 5) ----------
-# Descomente ao iniciar a FASE 5 e execute depois:
+# O robô usa Playwright + Chromium. Após instalar as dependências, execute uma vez:
 #   python -m playwright install chromium
-# playwright==1.49.0
+playwright==1.64.1

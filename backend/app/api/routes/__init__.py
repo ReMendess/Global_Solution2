@@ -7,6 +7,7 @@ from app.api.routes import (
     health,
     meta,
     occurrences,
+    rpa,
     sensors,
 )
 
@@ -17,5 +18,6 @@ __all__ = [
     "health",
     "meta",
     "occurrences",
+    "rpa",
     "sensors",
 ]

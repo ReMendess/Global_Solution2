@@ -82,8 +82,8 @@ python -m pytest                  # testes (testpaths = backend/tests)
 | Avaliação do modelo | 3 | `python -m ml.src.evaluate` (pós-treino local) |
 | Classificação | 3 | `GET/POST /api/v1/classification/*` (backend) |
 | Simulador IoT | 4 | `python -m simulator.sensors.runner` (opções: `--once`, `--critical`, `--interval`) |
-| Portal fictício | 5 | `python -m rpa.portal.server` (definido na Fase 5) |
-| Robô RPA | 5 | `python -m rpa.bot.dispatcher` (definido na Fase 5) |
+| Portal fictício | 5 | `python -m rpa.portal.server --port 8100` |
+| Robô RPA | 5 | `python -m rpa.bot.dispatcher` (opções: `--max-demands`) |
 | Agente | 6 | via API (`POST /api/v1/agent/messages`) |
 
 Portas reservadas: **8000** (API), **8100** (portal fictício), **8081** (Metro/Expo).
@@ -197,3 +197,13 @@ ocorrências seguem marcadas para revisão humana — comportamento correto e pr
 | Envio crítico | `--once --critical` | 6 leituras em CRITICAL (90–100%) |
 | Persistência | `GET /api/v1/containers/{code}/readings` | leituras presentes, com `distance_cm` e `alert_level` |
 | Dashboard | `GET /api/v1/dashboard/containers` | contêineres críticos listados em `critical_codes` |
+## 13. Checklist de verificação da FASE 5 (executado)
+
+| Item | Comando | Resultado real |
+|---|---|---|
+| Playwright | `python -m playwright install chromium` | Chromium 1248 instalado |
+| Lint / formato | `python -m ruff check .` + `ruff format --check .` | `All checks passed!` / sem diferenças |
+| Testes | `python -m pytest` | `129 passed` (16 de RPA) |
+| Portal | `python -m rpa.portal.server --port 8100` | GET formulário + POST com `PORTAL-XXXX` |
+| E2E | robô processa a fila | ocorrência `PENDING_DISPATCH` → `DISPATCHED` (`PORTAL-0001`) |
+| Duplicidade | 2ª `SUCCESS` | `409` (teste automatizado) |

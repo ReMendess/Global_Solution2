@@ -18,6 +18,7 @@ from app.api.routes import (
     health,
     meta,
     occurrences,
+    rpa,
     sensors,
 )
 from app.core.config import get_settings
@@ -93,6 +94,7 @@ def create_app() -> FastAPI:
     app.include_router(sensors.router)
     app.include_router(dashboard.router)
     app.include_router(classification.router)
+    app.include_router(rpa.router)
 
     # Imagens enviadas ficam em data/uploads (ADR-005); o frontend as carrega por URL.
     upload_dir = settings.resolved_upload_dir

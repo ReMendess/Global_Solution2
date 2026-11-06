@@ -158,26 +158,31 @@
 
 ---
 
-## FASE 5 — RPA Playwright
+## FASE 5 — RPA Playwright ✅
 
 **Escopo:** automação preenchendo portal administrativo fictício.
 
-**Entregáveis**
+**Entregáveis (implementados)**
 
-- `rpa/portal/` — portal fictício (HTML + servidor local simples).
-- `rpa/bot/dispatcher.py` — consulta fila, preenche portal, captura protocolo, devolve resultado.
-- `rpa/bot/selectors.py` — seletores centralizados.
-- Screenshots e relatório em `rpa/screenshots/` e `rpa/reports/`.
+- `rpa/portal/server.py` — portal administrativo fictício (HTTP local, stdlib, protocolo sequencial).
+- `rpa/bot/dispatcher.py` — robô: fila → preenchimento → captura do protocolo → registro na API.
+- `rpa/bot/selectors.py` — seletores CSS centralizados.
+- `rpa/config.py` — configuração (`.env`).
+- `backend/app/services/rpa_service.py` + `backend/app/api/routes/rpa.py`:
+  `GET /api/v1/rpa/queue`, `POST /api/v1/rpa/executions`, `GET /api/v1/rpa/executions`.
+- `rpa/README.md` + testes (`rpa/tests/`, 8) e backend (`backend/tests/test_rpa.py`, 8).
 
 **Critérios de aceite**
 
-- [ ] `python -m playwright install chromium` executado.
-- [ ] Portal fictício sobe e aceita submissão manual.
-- [ ] Robô processa uma ocorrência `PENDING_DISPATCH` de ponta a ponta.
-- [ ] Ocorrência passa para `DISPATCHED` com `dispatch_protocol` preenchido.
-- [ ] Execução registrada em `rpa_executions` com duração e evidência.
-- [ ] Segunda execução para a mesma ocorrência retorna `409`.
-- [ ] Falha controlada (portal fora do ar) resulta em `FAILED` sem corromper o estado.
+- [x] `python -m playwright install chromium` executado (Chromium 1248 instalado).
+- [x] Portal fictício sobe e aceita submissão (GET formulário + POST com protocolo).
+- [x] Robô processa uma ocorrência `PENDING_DISPATCH` de ponta a ponta.
+- [x] Ocorrência passa para `DISPATCHED` com `dispatch_protocol` preenchido (`PORTAL-0001`).
+- [x] Execução registrada em `rpa_executions` com duração e status `SUCCESS`.
+- [x] Segunda execução para a mesma ocorrência retorna `409`.
+- [x] Falha controlada resulta em `FAILED` sem corromper o estado (testado por unidade do serviço).
+
+**Resultados reais:** ver [`PHASE_5_REPORT.md`](PHASE_5_REPORT.md).
 
 ---
 
@@ -249,6 +254,7 @@
 | 2 | ✅ concluída | 46 passed (Jest) |
 | 3 | ✅ concluída (inferência pronta; treino no Colab) | 102 passed |
 | 4 | ✅ concluída | 113 passed |
+| 5 | ✅ concluída | 129 passed |
 | 2 | ⏳ pendente | sim |
 | 3 | ⏳ pendente | sim |
 | 4 | ⏳ pendente | sim |

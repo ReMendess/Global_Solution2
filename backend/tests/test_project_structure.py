@@ -115,6 +115,7 @@ def test_pyproject_configura_pytest_e_ruff() -> None:
     pytest_opcoes = conteudo["tool"]["pytest"]["ini_options"]
     assert "backend/tests" in pytest_opcoes["testpaths"], "backend/tests ausente em testpaths"
     assert "simulator/tests" in pytest_opcoes["testpaths"], "simulator/tests ausente em testpaths"
+    assert "rpa/tests" in pytest_opcoes["testpaths"], "rpa/tests ausente em testpaths"
     assert "--strict-markers" in pytest_opcoes["addopts"]
     assert conteudo["tool"]["ruff"]["line-length"] > 0
 
