@@ -4,7 +4,7 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { colors, radius, spacing, typography } from '@/constants/theme';
 
 interface NavItem {
-  href: '/' | '/registrar' | '/consultar' | '/admin/dashboard';
+  href: '/' | '/registrar' | '/consultar' | '/chat' | '/admin/dashboard';
   label: string;
 }
 
@@ -12,6 +12,7 @@ const NAV_ITEMS: NavItem[] = [
   { href: '/', label: 'Início' },
   { href: '/registrar', label: 'Registrar' },
   { href: '/consultar', label: 'Consultar' },
+  { href: '/chat', label: 'Assistente' },
   { href: '/admin/dashboard', label: 'Administração' },
 ];
 

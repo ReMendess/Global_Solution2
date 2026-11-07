@@ -1,4 +1,4 @@
-# DEMO_SCRIPT.md — Roteiro de demonstração
+l# DEMO_SCRIPT.md — Roteiro de demonstração
 
 > Roteiro sugerido para apresentar o Cidade Limpa em ~10–15 minutos. Cada passo mostra uma
 > funcionalidade real, com o comando e o resultado esperado.

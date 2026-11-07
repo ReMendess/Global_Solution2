@@ -1,4 +1,6 @@
 import type {
+  AgentMessage,
+  AgentSession,
   AlertLevel,
   ContainerAlertSummary,
   ContainerList,
@@ -113,6 +115,17 @@ export const api = {
     request<NeighborhoodRanking>(`${BASE}/dashboard/neighborhoods${queryString({ limit })}`, {
       role: 'ADMIN',
     }),
+
+  /** POST /api/v1/agent/messages */
+  agentMessage: (sessionId: string, message: string) =>
+    request<AgentMessage>(`${BASE}/agent/messages`, {
+      method: 'POST',
+      body: { session_id: sessionId, message },
+    }),
+
+  /** GET /api/v1/agent/sessions/{sessionId} */
+  agentSession: (sessionId: string) =>
+    request<AgentSession>(`${BASE}/agent/sessions/${encodeURIComponent(sessionId)}`),
 };
 
 export type Api = typeof api;

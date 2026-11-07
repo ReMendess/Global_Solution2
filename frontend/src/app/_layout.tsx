@@ -28,6 +28,7 @@ export default function RootLayout() {
             <Stack.Screen name="index" options={{ title: 'Início' }} />
             <Stack.Screen name="registrar" options={{ title: 'Registrar ocorrência' }} />
             <Stack.Screen name="consultar" options={{ title: 'Consultar protocolo' }} />
+            <Stack.Screen name="chat" options={{ title: 'Assistente' }} />
             <Stack.Screen name="admin" options={{ title: 'Administração' }} />
           </Stack>
         </View>

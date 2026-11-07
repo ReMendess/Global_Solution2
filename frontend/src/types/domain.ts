@@ -187,3 +187,30 @@ export interface NewOccurrenceInput {
   reportedCategory?: OccurrenceCategory;
   image?: PickedImage;
 }
+/** Resposta do agente a uma mensagem do usuário. */
+export interface AgentMessage {
+  session_id: string;
+  intent: string;
+  tool_used: string | null;
+  response: string;
+  data: Record<string, unknown> | null;
+}
+
+/** Item do histórico de conversa com o agente. */
+export interface AgentInteractionRead {
+  id: number;
+  session_id: string;
+  intent: string;
+  message: string;
+  response: string;
+  tool_used: string | null;
+  tool_payload: string | null;
+  created_at: string;
+}
+
+/** Histórico completo de uma sessão do agente. */
+export interface AgentSession {
+  session_id: string;
+  interactions: AgentInteractionRead[];
+  total: number;
+}

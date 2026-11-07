@@ -55,6 +55,7 @@ src/
 │   ├── index.tsx        # página inicial do cidadão
 │   ├── registrar.tsx    # registro de ocorrência (foto + protocolo)
 │   ├── consultar.tsx    # consulta por protocolo
+│   ├── chat.tsx         # assistente conversacional (agente)
 │   └── admin/           # dashboard, ocorrências, contêineres
 ├── components/          # UI reutilizável (screen, card, badge, fields...)
 ├── constants/theme.ts   # paleta, espaçamentos e breakpoints
@@ -83,5 +84,5 @@ validação do formulário e a renderização dos componentes principais.
 ## Limitações conhecidas
 
 - Perfil demonstrativo por cabeçalho (sem senha/JWT).
-- Sem tela de chat do agente: depende da FASE 6 do backend.
+- Contexto do agente em memória: uma nova sessão é criada a cada recarga da tela de chat.
 - Imagens exibidas via `GET /uploads/{arquivo}` servido pelo backend.

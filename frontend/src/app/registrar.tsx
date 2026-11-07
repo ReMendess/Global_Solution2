@@ -38,7 +38,7 @@ export default function RegistrarScreen() {
             value={
               resultado.model_label
                 ? `${resultado.model_label} (${formatConfidence(resultado.confidence)})`
-                : 'Aguardando modelo treinado (FASE 3)'
+                : 'Análise automática indisponível no momento'
             }
           />
           {resultado.needs_human_review ? (
