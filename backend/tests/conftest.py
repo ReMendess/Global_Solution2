@@ -43,11 +43,19 @@ def client() -> Iterator[TestClient]:
 
 @pytest.fixture(autouse=True)
 def _limpar_tabelas() -> Iterator[None]:
-    """Mantém cada teste independente apagando os dados após a execução."""
+    """Mantém cada teste independente apagando os dados após a execução.
+
+    Só apaga tabelas que já existem no banco de teste: os testes puramente unitários
+    não criam o schema, então a limpeza é segura também quando eles rodam isolados.
+    """
     yield
+    from sqlalchemy import inspect
+
+    inspetor = inspect(engine)
     with engine.begin() as connection:
         for tabela in reversed(Base.metadata.sorted_tables):
-            connection.execute(tabela.delete())
+            if inspetor.has_table(tabela.name):
+                connection.execute(tabela.delete())
 
 
 @pytest.fixture

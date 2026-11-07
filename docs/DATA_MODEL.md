@@ -183,11 +183,15 @@ users       1 ──< agent_interactions
 dedup_hash = sha256(neighborhood | category | round(latitude,4) | round(longitude,4) | YYYY-MM-DD)
 ```
 
+- A deduplicação **só é aplicada quando há coordenadas** (latitude e longitude).
+- **Sem coordenadas**, a API não bloqueia o registro: dois bairros podem ter varias ocorrências
+  distintas no mesmo dia (o bairro é grande demais para deduplicar sem localização).
 - Antes de inserir, o serviço calcula o hash e verifica se existe ocorrência com o mesmo hash e
   status diferente de `RESOLVED`/`REJECTED` nas últimas 24 horas.
 - Se existir, a API responde `409 Conflict` com o `protocol` original e a mensagem
   “Já existe uma ocorrência aberta para este local hoje”.
-- O hash é armazenado para consulta e nunca é recalculado a partir de dados mutáveis.
+- O hash é armazenado para consulta (como `NULL` quando não há coordenadas) e nunca é recalculado a
+  partir de dados mutáveis.
 
 **Deduplicação de dispatch (RPA):**
 

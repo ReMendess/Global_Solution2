@@ -117,12 +117,15 @@ def create_occurrence(
         longitude=data.longitude,
         reference=agora,
     )
-    duplicada = dedup_service.find_recent_duplicate(db, dedup_hash, agora)
-    if duplicada is not None:
-        raise ConflictError(
-            "Já existe uma ocorrência aberta para este local hoje "
-            f"(protocolo {duplicada.protocol})."
-        )
+    # Sem coordenadas não há deduplicação (bairros são grandes demais para distinguir
+    # denúncias distintas); com coordenadas, evita-se o duplo registro do mesmo local.
+    if dedup_hash is not None:
+        duplicada = dedup_service.find_recent_duplicate(db, dedup_hash, agora)
+        if duplicada is not None:
+            raise ConflictError(
+                "Já existe uma ocorrência aberta para este local hoje "
+                f"(protocolo {duplicada.protocol})."
+            )
 
     saved_image = storage_service.save_upload(image) if image is not None else None
     image_path = (

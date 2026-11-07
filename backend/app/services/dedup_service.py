@@ -30,8 +30,16 @@ def build_dedup_hash(
     latitude: float | None,
     longitude: float | None,
     reference: datetime,
-) -> str:
-    """Gera o hash de deduplicação da ocorrência (ver DATA_MODEL.md §5)."""
+) -> str | None:
+    """Gera o hash de deduplicação da ocorrência (ver DATA_MODEL.md §5).
+
+    Retorna ``None`` quando não há coordenadas: sem latitude/longitude não é possível
+    distinguir uma ocorrência nova de outra já registrada **no mesmo bairro**, então a
+    deduplicação é desativada para não bloquear denúncias legítimas do mesmo bairro.
+    """
+    if latitude is None or longitude is None:
+        return None
+
     partes = [
         neighborhood.strip().lower(),
         category,

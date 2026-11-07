@@ -34,7 +34,7 @@ class Settings(BaseSettings):
 
     # --- uploads ---
     upload_dir: Path = Path("./data/uploads")
-    max_upload_mb: int = Field(default=5, gt=0, le=50)
+    max_upload_mb: int = Field(default=20, gt=0, le=50)
 
     # --- machine learning (FASE 3) ---
     model_path: Path = Path("./ml/models/cidade_limpa_mobilenetv2.keras")

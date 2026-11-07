@@ -98,7 +98,7 @@ ignorado pelo git.
 | `APP_ENV` | `development` | Comportamento da aplicação |
 | `DATABASE_URL` | `sqlite:///./data/cidade_limpa.db` | Conexão SQLAlchemy |
 | `UPLOAD_DIR` | `./data/uploads` | Destino das fotos |
-| `MAX_UPLOAD_MB` | `5` | Limite de upload |
+| `MAX_UPLOAD_MB` | `20` | Limite de upload |
 | `MODEL_PATH` | `./ml/models/...keras` | Pesos do modelo |
 | `CONFIDENCE_THRESHOLD` | `0.70` | Revisão humana |
 | `API_BASE_URL` | `http://127.0.0.1:8000` | Simulador e RPA |

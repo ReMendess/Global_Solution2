@@ -135,3 +135,40 @@ def test_hash_de_deduplicacao_estavel_e_sensivel() -> None:
     assert base == mesmo_local
     assert base != outro_bairro
     assert len(base) == 64
+
+
+@pytest.mark.unit
+def test_hash_e_none_sem_coordenadas() -> None:
+    """Sem coordenadas não há deduplicação (retorna None)."""
+    referencia = datetime(2026, 11, 4, 10, 0, 0)
+
+    assert (
+        build_dedup_hash(
+            neighborhood="Pinheiros",
+            category="OVERFLOW",
+            latitude=None,
+            longitude=None,
+            reference=referencia,
+        )
+        is None
+    )
+    assert (
+        build_dedup_hash(
+            neighborhood="Pinheiros",
+            category="OVERFLOW",
+            latitude=-23.5678,
+            longitude=None,
+            reference=referencia,
+        )
+        is None
+    )
+    assert (
+        build_dedup_hash(
+            neighborhood="Pinheiros",
+            category="OVERFLOW",
+            latitude=None,
+            longitude=-46.692,
+            reference=referencia,
+        )
+        is None
+    )

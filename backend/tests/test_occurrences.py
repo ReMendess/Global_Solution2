@@ -95,6 +95,30 @@ def test_ocorrencia_duplicada_retorna_409_com_protocolo_original(
 
 
 @pytest.mark.integration
+def test_permite_duas_ocorrencias_no_mesmo_bairro(client: TestClient) -> None:
+    """Sem coordenadas, duas denúncias no mesmo bairro não são consideradas duplicadas."""
+    primeira = _criar(client, neighborhood="Tatuapé", description="Primeira denúncia")
+    segunda = _criar(client, neighborhood="Tatuapé", description="Segunda denúncia")
+
+    assert primeira["protocol"] != segunda["protocol"]
+
+
+@pytest.mark.integration
+def test_imagem_maior_que_5_mb_e_aceita(client: TestClient) -> None:
+    """O limite padrão subiu para 20 MB; arquivos entre 5 e 20 MB são aceitos."""
+    dados = b"\x89PNG\r\n\x1a\n" + b"x" * (6 * 1024 * 1024)  # ~6 MB
+
+    resposta = client.post(
+        ENDPOINT,
+        data={"neighborhood": "Ipiranga", "reported_category": "OVERFLOW"},
+        files={"image": ("grande.png", dados, "image/png")},
+    )
+
+    assert resposta.status_code == 201, resposta.text
+    assert resposta.json()["images"][0]["size_bytes"] == len(dados)
+
+
+@pytest.mark.integration
 def test_upload_de_imagem_persiste_arquivo_e_marca_revisao(client: TestClient) -> None:
     """A imagem é gravada em disco e a ocorrência passa por CLASSIFIED."""
     resposta = client.post(
