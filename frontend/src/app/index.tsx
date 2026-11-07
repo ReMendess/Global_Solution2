@@ -43,7 +43,7 @@ export default function HomeScreen() {
 
   return (
     <Screen
-      title="Cidade Limpa"
+      title="Smart Clean City"
       subtitle="Registre problemas de resíduos urbanos e acompanhe a resolução pela nossa plataforma."
       headerRight={<ProfileSwitch />}
     >

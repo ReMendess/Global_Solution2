@@ -23,7 +23,7 @@ export function AppNav() {
   return (
     <View style={styles.bar}>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.row}>
-        <Text style={styles.brand}>Cidade Limpa</Text>
+        <Text style={styles.brand}>Smart Clean City</Text>
         {NAV_ITEMS.map((item) => {
           const ativo =
             item.href === '/' ? pathname === '/' : pathname.startsWith(item.href.split('/').slice(0, 2).join('/'));

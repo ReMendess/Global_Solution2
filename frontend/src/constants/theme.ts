@@ -2,7 +2,7 @@ import type { AlertLevel, OccurrenceStatus, Priority } from '@/types/domain';
 
 /** Paleta e medidas compartilhadas por todas as telas (tema claro). */
 export const colors = {
-  background: '#F5F7F4',
+  background: '#e1f1d9',
   surface: '#FFFFFF',
   surfaceMuted: '#EDF2EA',
   border: '#DCE3D9',
