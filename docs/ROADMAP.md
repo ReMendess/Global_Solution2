@@ -215,22 +215,28 @@
 
 ---
 
-## FASE 7 — Integração, testes e CI/CD
+## FASE 7 — Integração, testes e CI/CD ✅
 
 **Escopo:** consolidação da qualidade e automação de verificação.
 
-**Entregáveis**
+**Entregáveis (implementados)**
 
-- `.github/workflows/ci.yml`: lint, testes de backend e build do frontend.
-- Teste de integração ponta a ponta (criar → classificar → despachar → resolvido).
-- Cobertura mínima documentada.
+- `.github/workflows/ci.yml` — jobs backend (ruff + pytest com cobertura + verificação de segredos)
+  e frontend (typecheck + Jest + build web).
+- `backend/tests/test_e2e_flow.py` — dois testes ponta a ponta (com e sem visão computacional).
+- `pytest-cov` adicionado a `requirements-dev.txt`; cobertura **real: 88%** documentada.
+- `docs/TESTING.md` — estratégia e comandos de teste.
 
 **Critérios de aceite**
 
-- [ ] Workflow verde no GitHub Actions.
-- [ ] Teste ponta a ponta passando com banco temporário.
-- [ ] Nenhum segredo versionado.
-- [ ] `ruff check` e `pytest` obrigatórios no CI.
+- [x] Teste ponta a ponta passando com banco temporário (`test_e2e_flow.py`, 2 testes).
+- [x] Nenhum segredo versionado (verificado por `git grep` e pelo teste de `.env.example`).
+- [x] `ruff check` e `pytest` obrigatórios no CI (e localmente verdes: 149 passed, lint sem erros).
+- [x] Cobertura mensurada: **88%** (core de serviços/rotas acima de 90%).
+- [ ] Workflow verde no GitHub Actions — **pendente do `push` para o GitHub privado** (o repositório
+      ainda não tem `remote` configurado; o YAML foi validado localmente).
+
+**Resultados reais e limitações:** ver [`PHASE_7_REPORT.md`](PHASE_7_REPORT.md).
 
 ---
 
@@ -263,6 +269,7 @@
 | 4 | ✅ concluída | 113 passed |
 | 5 | ✅ concluída | 129 passed |
 | 6 | ✅ concluída | 147 passed |
+| 7 | ✅ concluída (CI pronto; push pendente) | 149 passed, 88% cobertura |
 | 2 | ⏳ pendente | sim |
 | 3 | ⏳ pendente | sim |
 | 4 | ⏳ pendente | sim |

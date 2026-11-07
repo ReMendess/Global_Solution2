@@ -220,3 +220,14 @@ ocorrências seguem marcadas para revisão humana — comportamento correto e pr
 | Indicadores | `quantas ocorrências existem?` | 10 (real do banco) |
 | Desconhecida | `qual a previsão do tempo?` | orientação, sem invenção |
 | Histórico | `GET /api/v1/agent/sessions/sess-demo` | 6 interações persistidas |
+## 15. Checklist de verificação da FASE 7 (executado)
+
+| Item | Comando | Resultado real |
+|---|---|---|
+| Lint / formato | `python -m ruff check .` + `ruff format --check .` | `All checks passed!` / sem diferenças |
+| Testes | `python -m pytest` | `149 passed` |
+| Cobertura | `python -m pytest --cov=backend/app --cov=simulator --cov=rpa` | `88%` (2068 statements) |
+| e2e (sem ML) | `test_e2e_flow.py::test_fluxo_completo_de_ocorrencia` | 5 transições até `RESOLVED` |
+| e2e (com ML) | `test_e2e_flow.py::test_fluxo_com_ml_de_ponta_a_ponta` | 6 transições (com `CLASSIFIED`) |
+| Segredos | `git grep` por padrões (fora de testes) | nenhum resultado |
+| CI (YAML) | `yaml.safe_load(.github/workflows/ci.yml)` | válido |

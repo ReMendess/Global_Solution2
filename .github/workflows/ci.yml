@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  backend:
+    name: Backend (lint, testes e cobertura)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - name: Instalar dependências
+        run: python -m pip install -r requirements.txt -r requirements-dev.txt
+
+      - name: Lint (ruff)
+        run: python -m ruff check .
+
+      - name: Formatação (ruff format --check)
+        run: python -m ruff format --check .
+
+      - name: Testes (com cobertura)
+        run: |
+          python -m pytest \
+            --cov=backend/app --cov=simulator --cov=rpa \
+            --cov-report=term-missing \
+            --cov-report=xml
+
+      - name: Verificação de segredos
+        run: |
+          if git grep -nEI "(AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{36}|BEGIN [A-Z ]*PRIVATE KEY)" -- . ':!*test*'; then
+            echo "::error::Possível segredo versionado no repositório."
+            exit 1
+          fi
+          echo "Nenhum segredo detectado."
+
+      - name: Upload da cobertura
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-backend
+          path: coverage.xml
+          if-no-files-found: ignore
+
+  frontend:
+    name: Frontend (typecheck, testes e build)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Testes
+        run: npm test -- --ci
+
+      - name: Build web
+        run: npm run build:web

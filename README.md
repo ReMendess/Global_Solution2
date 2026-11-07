@@ -79,6 +79,7 @@ Global_Solution2/
 ├── rpa/                      # robô Playwright + portal fictício (FASE 5)
 │   ├── portal/server.py      # portal administrativo fictício (HTTP local)
 │   └── bot/dispatcher.py     # robô: fila → preenchimento → captura de protocolo
+├── .github/workflows/ci.yml  # integração contínua (backend + frontend)
 ├── data/                     # SQLite e uploads em runtime (não versionados)
 └── docs/                     # documentação do projeto
 ```
@@ -102,6 +103,8 @@ Global_Solution2/
 | [`docs/PHASE_4_REPORT.md`](docs/PHASE_4_REPORT.md) | Resultados reais e limitações da FASE 4 |
 | [`docs/PHASE_5_REPORT.md`](docs/PHASE_5_REPORT.md) | Resultados reais e limitações da FASE 5 |
 | [`docs/PHASE_6_REPORT.md`](docs/PHASE_6_REPORT.md) | Resultados reais e limitações da FASE 6 |
+| [`docs/PHASE_7_REPORT.md`](docs/PHASE_7_REPORT.md) | Resultados reais e limitações da FASE 7 |
+| [`docs/TESTING.md`](docs/TESTING.md) | Estratégia de testes, comandos e cobertura |
 
 ## 7. Como preparar o ambiente
 
@@ -130,7 +133,8 @@ A execução de cada módulo é detalhada em [`docs/ENVIRONMENT.md`](docs/ENVIRO
 ```bash
 python -m ruff check .           # lint
 python -m ruff format --check .  # formatação
-python -m pytest                 # testes
+python -m pytest                 # testes (149, cobertura 88%)
+cd frontend && npm test -- --ci  # testes de frontend
 ```
 
 ## 9. Status das fases
@@ -144,7 +148,7 @@ python -m pytest                 # testes
 | 4 | Simulador IoT | ✅ concluída |
 | 5 | RPA Playwright | ✅ concluída |
 | 6 | Agente conversacional | ✅ concluída |
-| 7 | Integração, testes e CI/CD | ⏳ pendente |
+| 7 | Integração, testes e CI/CD | ✅ concluída (CI pronto; push pendente) |
 | 8 | Documentação e apresentação | ⏳ pendente |
 
 Detalhamento e critérios de aceite em [`docs/ROADMAP.md`](docs/ROADMAP.md).
