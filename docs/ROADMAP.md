@@ -240,23 +240,23 @@
 
 ---
 
-## FASE 8 — Documentação e apresentação
+## FASE 8 — Documentação e apresentação ✅
 
 **Escopo:** fechamento acadêmico.
 
-**Entregáveis**
+**Entregáveis (implementados)**
 
-- Documentação final com instruções de execução de cada módulo.
-- Relatório com arquitetura, resultados reais das métricas e evidências (screenshots do RPA,
-  dashboard, chat).
-- Roteiro de demonstração.
-- Seção explícita de limitações.
+- `docs/EXECUTION_GUIDE.md` — instruções de execução de cada módulo.
+- `docs/FINAL_REPORT.md` — arquitetura, resultados **reais** (149 testes, 88% cobertura, accuracy
+  0,7273), mapa de evidências e limitações consolidadas.
+- `docs/DEMO_SCRIPT.md` — roteiro de demonstração passo a passo.
+- `README.md` atualizado como porta de entrada (todas as 8 fases concluídas).
 
 **Critérios de aceite**
 
-- [ ] Todos os módulos executáveis seguindo apenas a documentação.
-- [ ] Métricas e evidências anexadas são reais.
-- [ ] Limitações listadas sem omissão.
+- [x] Todos os módulos executáveis seguindo apenas a documentação (ver `EXECUTION_GUIDE.md`).
+- [x] Métricas e evidências reais anexadas (`FINAL_REPORT.md` e artefatos em `ml/models`/`ml/reports`).
+- [x] Limitações listadas sem omissão (`FINAL_REPORT.md` §5).
 
 ## Resumo de status
 
@@ -265,15 +265,9 @@
 | 0 | ✅ concluída | configuração de lint/pytest validada |
 | 1 | ✅ concluída | 89 passed |
 | 2 | ✅ concluída | 46 passed (Jest) |
-| 3 | ✅ concluída (inferência pronta; treino no Colab) | 102 passed |
+| 3 | ✅ concluída (modelo real publicado) | 102 passed |
 | 4 | ✅ concluída | 113 passed |
 | 5 | ✅ concluída | 129 passed |
 | 6 | ✅ concluída | 147 passed |
 | 7 | ✅ concluída (CI pronto; push pendente) | 149 passed, 88% cobertura |
-| 2 | ⏳ pendente | sim |
-| 3 | ⏳ pendente | sim |
-| 4 | ⏳ pendente | sim |
-| 5 | ⏳ pendente | sim |
-| 6 | ⏳ pendente | sim |
-| 7 | ⏳ pendente | sim |
-| 8 | ⏳ pendente | — |
+| 8 | ✅ concluída | — |

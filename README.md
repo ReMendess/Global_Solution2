@@ -105,6 +105,9 @@ Global_Solution2/
 | [`docs/PHASE_6_REPORT.md`](docs/PHASE_6_REPORT.md) | Resultados reais e limitações da FASE 6 |
 | [`docs/PHASE_7_REPORT.md`](docs/PHASE_7_REPORT.md) | Resultados reais e limitações da FASE 7 |
 | [`docs/TESTING.md`](docs/TESTING.md) | Estratégia de testes, comandos e cobertura |
+| [`docs/EXECUTION_GUIDE.md`](docs/EXECUTION_GUIDE.md) | Como executar cada módulo |
+| [`docs/DEMO_SCRIPT.md`](docs/DEMO_SCRIPT.md) | Roteiro de demonstração |
+| [`docs/FINAL_REPORT.md`](docs/FINAL_REPORT.md) | Relatório final (arquitetura, métricas, limitações) |
 
 ## 7. Como preparar o ambiente
 
@@ -149,7 +152,7 @@ cd frontend && npm test -- --ci  # testes de frontend
 | 5 | RPA Playwright | ✅ concluída |
 | 6 | Agente conversacional | ✅ concluída |
 | 7 | Integração, testes e CI/CD | ✅ concluída (CI pronto; push pendente) |
-| 8 | Documentação e apresentação | ⏳ pendente |
+| 8 | Documentação e apresentação | ✅ concluída |
 
 Detalhamento e critérios de aceite em [`docs/ROADMAP.md`](docs/ROADMAP.md).
 

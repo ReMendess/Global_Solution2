@@ -231,3 +231,17 @@ ocorrências seguem marcadas para revisão humana — comportamento correto e pr
 | e2e (com ML) | `test_e2e_flow.py::test_fluxo_com_ml_de_ponta_a_ponta` | 6 transições (com `CLASSIFIED`) |
 | Segredos | `git grep` por padrões (fora de testes) | nenhum resultado |
 | CI (YAML) | `yaml.safe_load(.github/workflows/ci.yml)` | válido |
+## 16. Checklist de verificação da FASE 8 (executado)
+
+| Item | Resultado real |
+|---|---|
+| Documentação consolidada | `docs/{EXECUTION_GUIDE,FINAL_REPORT,DEMO_SCRIPT}.md` criados e referenciados no README |
+| Resultados citados | 149 testes, 88% cobertura, accuracy 0,7273 — todos de execução real |
+| Limitações | consolidadas em `FINAL_REPORT.md` §5 (12 itens) |
+| Links internos | 0 links quebrados entre os Markdown |
+| Status das fases | 0–8 marcadas como concluídas |
+
+## Fim do documento
+
+As fases 0 a 8 estão concluídas. Pendências fora do código: `push` para o GitHub privado
+(CI verde) e teste do app em um aparelho físico via Expo Go — ambas registradas nas limitações.
