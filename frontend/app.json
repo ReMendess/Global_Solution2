@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "Cidade Limpa",
-    "slug": "cidade-limpa",
+    "name": "Smart Clean City",
+    "slug": "smart-clean-city",
     "version": "0.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "scheme": "cidadelimpa",
+    "scheme": "smartcleancity",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "ios": {
@@ -30,8 +30,8 @@
       [
         "expo-image-picker",
         {
-          "photosPermission": "Permitir que o Cidade Limpa acesse suas fotos para registrar ocorrências.",
-          "cameraPermission": "Permitir que o Cidade Limpa use a câmera para registrar ocorrências."
+          "photosPermission": "Permitir que o Smart Clean City acesse suas fotos para registrar ocorrências.",
+          "cameraPermission": "Permitir que o Smart Clean City use a câmera para registrar ocorrências."
         }
       ]
     ],

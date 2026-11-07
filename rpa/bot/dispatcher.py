@@ -180,7 +180,7 @@ def main(argv: list[str] | None = None) -> int:
     logging.basicConfig(
         level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s"
     )
-    parser = argparse.ArgumentParser(description="Robô de despacho do Cidade Limpa (FASE 5).")
+    parser = argparse.ArgumentParser(description="Robô de despacho do Smart Clean City (FASE 5).")
     parser.add_argument("--api-base-url", default=None)
     parser.add_argument("--portal-url", default=None)
     parser.add_argument("--max-demands", type=int, default=None)

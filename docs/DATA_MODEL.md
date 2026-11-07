@@ -226,7 +226,7 @@ dedup_hash = sha256(neighborhood | category | round(latitude,4) | round(longitud
    `backend/app/services/priority_service.py`, exatamente conforme
    [`BUSINESS_RULES.md`](BUSINESS_RULES.md) §4 (com `HIGH_CONFIDENCE = 0.85`).
 2. **Seed de `users`:** decidido — dois perfis demonstrativos
-   (`admin@cidadelimpa.demo` / `cidadao@cidadelimpa.demo`). A autenticação é por cabeçalho
+   (`admin@smartcleancity.demo` / `cidadao@smartcleancity.demo`). A autenticação é por cabeçalho
    `X-User-Role` nesta fase (ADR-014), então `password_hash` guarda apenas um marcador.
 3. **`dedup_hash`:** validado em teste automatizado (mesmo bairro/coordenadas no mesmo dia → `409`;
    bairro diferente → registro aceito). A janela é de 24 h e ignora ocorrências terminais.

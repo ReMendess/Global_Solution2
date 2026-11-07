@@ -1,6 +1,6 @@
 # FINAL_REPORT.md — Relatório final do projeto
 
-> **Cidade Limpa** — Plataforma Inteligente de Monitoramento e Gestão de Resíduos Urbanos.
+> **Smart Clean City** — Plataforma Inteligente de Monitoramento e Gestão de Resíduos Urbanos.
 > FIAP Global Solution 2026.2 · CitizenTech. Desenvolvimento individual com assistência do Cline.
 >
 > Este documento consolida arquitetura, resultados **reais** e limitações. Nenhuma métrica ou

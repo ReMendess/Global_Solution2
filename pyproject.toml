@@ -3,9 +3,9 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "cidade-limpa"
+name = "smart-clean-city"
 version = "0.1.0"
-description = "Cidade Limpa - Plataforma Inteligente de Monitoramento e Gestao de Residuos Urbanos (FIAP Global Solution 2026.2)"
+description = "Smart Clean City - Plataforma Inteligente de Monitoramento e Gestao de Residuos Urbanos (FIAP Global Solution 2026.2)"
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "Proprietary" }

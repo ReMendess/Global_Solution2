@@ -23,7 +23,7 @@ FORM_HTML = """<!doctype html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
-  <title>Portal Administrativo — Cidade Limpa (demonstrativo)</title>
+  <title>Portal Administrativo — Smart Clean City (demonstrativo)</title>
   <style>
     body { font-family: sans-serif; max-width: 560px; margin: 40px auto; padding: 0 16px; }
     label { display: block; margin-top: 12px; font-weight: 600; }

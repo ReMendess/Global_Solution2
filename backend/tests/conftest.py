@@ -11,7 +11,7 @@ import tempfile
 from collections.abc import Callable, Iterator
 from pathlib import Path
 
-_TMP_ROOT = Path(tempfile.mkdtemp(prefix="cidade_limpa_tests_"))
+_TMP_ROOT = Path(tempfile.mkdtemp(prefix="smart_clean_city_tests_"))
 os.environ["APP_ENV"] = "test"
 os.environ["DATABASE_URL"] = f"sqlite:///{(_TMP_ROOT / 'test.db').as_posix()}"
 os.environ["UPLOAD_DIR"] = str(_TMP_ROOT / "uploads")

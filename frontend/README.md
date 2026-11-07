@@ -1,4 +1,4 @@
-# Cidade Limpa — Frontend (Expo + React Native Web)
+# Smart Clean City — Frontend (Expo + React Native Web)
 
 Aplicação do cidadão e da administração, consumindo **exclusivamente** a API REST do backend
 (`backend/`, FastAPI). Desenvolvida com Expo (SDK 57), Expo Router e React Native Web.

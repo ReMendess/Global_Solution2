@@ -1,4 +1,4 @@
-# Cidade Limpa — RPA (FASE 5)
+# Smart Clean City — RPA (FASE 5)
 
 Robô **Playwright** que consulta a fila de demandas da API, preenche um **portal
 administrativo fictício** e devolve o resultado (protocolo capturado) à API.

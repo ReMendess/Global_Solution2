@@ -1,4 +1,4 @@
-# Cidade Limpa
+# Smart Clean City
 
 **Plataforma Inteligente de Monitoramento e Gestão de Resíduos Urbanos**
 
@@ -12,7 +12,7 @@ com assistência do Cline).
 Identificar, registrar, monitorar e encaminhar ocorrências de descarte irregular de resíduos e de
 transbordamento de contêineres urbanos é um processo manual, fragmentado e sem rastreabilidade.
 
-O **Cidade Limpa** permite que o cidadão registre a ocorrência com foto e localização, que um modelo
+O **Smart Clean City** permite que o cidadão registre a ocorrência com foto e localização, que um modelo
 de visão computacional classifique a imagem, que a demanda seja encaminhada automaticamente para um
 portal administrativo (via RPA) e que o administrador acompanhe indicadores, contêineres e
 execuções do sistema em um dashboard.

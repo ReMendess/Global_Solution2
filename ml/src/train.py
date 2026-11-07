@@ -48,7 +48,7 @@ from ml.src.preprocess import build_augmentation, build_datasets
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     """Lê os argumentos de linha de comando."""
-    parser = argparse.ArgumentParser(description="Treina o modelo Cidade Limpa (MobileNetV2).")
+    parser = argparse.ArgumentParser(description="Treina o modelo Smart Clean City (MobileNetV2).")
     parser.add_argument("--raw-dir", type=Path, default=RAW_DIR, help="dataset bruto")
     parser.add_argument(
         "--processed-dir", type=Path, default=PROCESSED_DIR, help="dataset dividido"

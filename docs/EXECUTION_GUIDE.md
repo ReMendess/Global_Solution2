@@ -1,6 +1,6 @@
 # EXECUTION_GUIDE.md — Como executar cada módulo
 
-> Guia único e consolidado para rodar o Cidade Limpa do zero. Pressupõe um terminal PowerShell no
+> Guia único e consolidado para rodar o Smart Clean City do zero. Pressupõe um terminal PowerShell no
 > Windows (os comandos são análogos no Linux/macOS). Versões verificadas em `docs/ENVIRONMENT.md`.
 
 ## 0. Pré-requisitos

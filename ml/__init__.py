@@ -1,4 +1,4 @@
-"""Pipeline de Machine Learning do Cidade Limpa (FASE 3).
+"""Pipeline de Machine Learning do Smart Clean City (FASE 3).
 
 Os módulos são executáveis como pacote a partir da raiz do repositório:
 

@@ -1,4 +1,4 @@
-# Cidade Limpa — Simulador de IoT (FASE 4)
+# Smart Clean City — Simulador de IoT (FASE 4)
 
 Sensores ultrassônicos **virtuais** que representam contêineres urbanos e enviam
 telemetria (ocupação + distância) via HTTP para o backend FastAPI.

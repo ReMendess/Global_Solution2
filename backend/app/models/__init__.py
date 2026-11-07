@@ -1,4 +1,4 @@
-"""Modelos ORM do Cidade Limpa (8 entidades do PROJECT_CONTEXT.md §7)."""
+"""Modelos ORM do Smart Clean City (8 entidades do PROJECT_CONTEXT.md §7)."""
 
 from app.models.automation import AgentInteraction, RPAExecution
 from app.models.container import Container, SensorReading

@@ -80,7 +80,7 @@ Com o Metro e o backend rodando:
 |---|---|
 | `GET http://localhost:8081/` | `200`, 1.291 bytes de HTML |
 | `GET .../entry.bundle?platform=web&dev=true` | `200`, 4.165.308 bytes |
-| Bundle contém `Cidade Limpa` | sim |
+| Bundle contém `Smart Clean City` | sim |
 | Bundle contém `Registrar ocorrência` | sim |
 | Bundle contém `dashboard/summary` | sim |
 | Bundle contém `X-User-Role` | sim |

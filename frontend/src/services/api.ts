@@ -33,7 +33,7 @@ function queryString(params: Record<string, string | number | boolean | undefine
   return `?${busca}`;
 }
 
-/** Cliente da API do Cidade Limpa (único ponto de acesso HTTP do frontend). */
+/** Cliente da API do Smart Clean City (único ponto de acesso HTTP do frontend). */
 export const api = {
   /** GET /health */
   health: () => request<Health>('/health'),

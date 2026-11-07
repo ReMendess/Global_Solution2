@@ -26,7 +26,7 @@ class Settings(BaseSettings):
 
     # --- aplicação ---
     app_env: str = "development"
-    app_name: str = "Cidade Limpa API"
+    app_name: str = "Smart Clean City API"
     app_version: str = "0.1.0"
 
     # --- banco de dados ---

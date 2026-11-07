@@ -1,5 +1,5 @@
 # =====================================================================
-# Cidade Limpa — dependencias de desenvolvimento e testes
+# Smart Clean City — dependencias de desenvolvimento e testes
 # Instalar com:
 #   python -m pip install -r requirements.txt -r requirements-dev.txt
 # =====================================================================

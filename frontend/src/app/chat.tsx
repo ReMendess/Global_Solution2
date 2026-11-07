@@ -59,7 +59,7 @@ export default function ChatScreen() {
   return (
     <Screen
       title="Assistente"
-      subtitle="Converse com o assistente virtual do Cidade Limpa e tire dúvidas sobre ocorrências, contêineres e indicadores."
+      subtitle="Converse com o assistente virtual do Smart Clean City e tire dúvidas sobre ocorrências, contêineres e indicadores."
     >
       <View style={styles.chatBox}>
         <ScrollView

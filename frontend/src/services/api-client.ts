@@ -69,7 +69,7 @@ function extractDetail(payload: unknown, fallback: string): string {
 }
 
 /**
- * Executa uma requisição HTTP contra a API do Cidade Limpa.
+ * Executa uma requisição HTTP contra a API do Smart Clean City.
  *
  * Converte falhas em `ApiError`, com a mensagem em pt-BR devolvida pelo backend.
  */
@@ -113,7 +113,7 @@ export async function request<T>(path: string, options: RequestOptions = {}): Pr
       throw error;
     }
     const mensagem =
-      'Não foi possível falar com a API do Cidade Limpa. Verifique se o backend está em execução.';
+      'Não foi possível falar com a API do Smart Clean City. Verifique se o backend está em execução.';
     throw new ApiError(0, mensagem, error);
   } finally {
     clearTimeout(timeout);

@@ -1,6 +1,6 @@
 # TESTING.md — Estratégia de testes e comandos
 
-> Documenta como os testes do Cidade Limpa são organizados, executados e medidos.
+> Documenta como os testes do Smart Clean City são organizados, executados e medidos.
 > Resultado real na FASE 7: **149 testes, cobertura de 88%**.
 
 ## 1. Onde estão os testes

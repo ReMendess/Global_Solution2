@@ -162,7 +162,7 @@ ignorado pelo git.
 | Build web | `npm run build:web` | `Web Bundled 21830ms` (808 módulos), `Exported: dist` |
 | Servidor web | `npm run web` | `Waiting on http://localhost:8081` |
 | Página inicial | `GET http://localhost:8081/` | `200`, 1.291 bytes (HTML do Expo Router) |
-| Bundle | `GET /node_modules/expo-router/entry.bundle?...` | `200`, 4.165.308 bytes; contém `Cidade Limpa`, `Registrar ocorrência`, `dashboard/summary`, `X-User-Role` |
+| Bundle | `GET /node_modules/expo-router/entry.bundle?...` | `200`, 4.165.308 bytes; contém `Smart Clean City`, `Registrar ocorrência`, `dashboard/summary`, `X-User-Role` |
 | CORS (preflight) | `OPTIONS /api/v1/meta/enums` com `Origin: http://localhost:8081` | `200`, `access-control-allow-origin: *` |
 | Integração real | `GET /api/v1/dashboard/summary` com `X-User-Role: ADMIN` | `200` com 7 ocorrências do banco |
 | Imagens | `GET /uploads/{arquivo}` | `200` com `image/png` (novo teste no backend) |

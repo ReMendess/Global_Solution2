@@ -37,8 +37,8 @@ logger = logging.getLogger(__name__)
 DEMO_PASSWORD_HASH = "DEMO-ONLY-NOT-A-REAL-HASH"  # autenticação é por cabeçalho nesta fase
 
 DEMO_USERS = [
-    ("Administração Cidade Limpa", "admin@cidadelimpa.demo", UserRole.ADMIN),
-    ("Cidadão Demonstração", "cidadao@cidadelimpa.demo", UserRole.CITIZEN),
+    ("Administração Smart Clean City", "admin@smartcleancity.demo", UserRole.ADMIN),
+    ("Cidadão Demonstração", "cidadao@smartcleancity.demo", UserRole.CITIZEN),
 ]
 
 # (código, bairro, endereço, latitude, longitude, capacidade, ocupação inicial %)

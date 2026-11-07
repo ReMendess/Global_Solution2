@@ -1,4 +1,4 @@
-"""Aplicação FastAPI do Cidade Limpa."""
+"""Aplicação FastAPI do Smart Clean City."""
 
 from __future__ import annotations
 
@@ -51,9 +51,9 @@ async def lifespan(_: FastAPI) -> AsyncIterator[None]:
     configure_logging()
     init_db()
     ensure_runtime_directories()
-    logger.info("Cidade Limpa API iniciada")
+    logger.info("Smart Clean City API iniciada")
     yield
-    logger.info("Cidade Limpa API encerrada")
+    logger.info("Smart Clean City API encerrada")
 
 
 def create_app() -> FastAPI:

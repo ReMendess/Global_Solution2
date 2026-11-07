@@ -1,4 +1,4 @@
-# ARCHITECTURE.md — Arquitetura do Cidade Limpa
+# ARCHITECTURE.md — Arquitetura do Smart Clean City
 
 > Documento derivado de [`PROJECT_CONTEXT.md`](PROJECT_CONTEXT.md). Define componentes, fronteiras,
 > fluxos e critérios estruturais. Nenhuma implementação é descrita aqui; apenas o desenho acordado.
