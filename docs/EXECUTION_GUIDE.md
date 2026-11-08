@@ -27,8 +27,13 @@ cd ..
 ```powershell
 cd backend
 python -m app.db.seed                       # dados de demonstração (idempotente)
-python -m uvicorn app.main:app --reload --port 8000
+python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
+
+> **Importante para testar no celular (Expo Go):** use `--host 0.0.0.0` para o backend aceitar
+> conexões da rede local. Se o app mostrar "Não foi possível conectar à API", verifique também se o
+> firewall do Windows libera a porta 8000. Em testes somente na própria máquina (web), `127.0.0.1`
+> já basta.
 
 - Documentação interativa: http://127.0.0.1:8000/docs
 - Saúde: `GET http://127.0.0.1:8000/health` → `"model_loaded": true` (se o modelo estiver em
@@ -109,7 +114,7 @@ a verificação de segredos e o build/teste do frontend. Requer o `push` do repo
 
 | Recurso | Porta | Variável principal |
 |---|---|---|
-| Backend (API) | 8000 | `API_HOST`/`API_PORT`, `DATABASE_URL` |
+| Backend (API) | 8000 | uvicorn `--host`/`--port` (padrão `--host 0.0.0.0`), `DATABASE_URL` |
 | Frontend web | 8081 | `EXPO_PUBLIC_API_URL` |
 | Portal fictício | 8100 | `RPA_PORTAL_URL` |
 

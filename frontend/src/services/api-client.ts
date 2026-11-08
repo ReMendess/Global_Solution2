@@ -113,7 +113,9 @@ export async function request<T>(path: string, options: RequestOptions = {}): Pr
       throw error;
     }
     const mensagem =
-      'Não foi possível falar com a API do Smart Clean City. Verifique se o backend está em execução.';
+      `Não foi possível conectar à API (${url}). ` +
+      'Verifique se o backend está rodando. No celular, ele precisa aceitar conexões externas: ' +
+      'python -m uvicorn app.main:app --host 0.0.0.0 --port 8000';
     throw new ApiError(0, mensagem, error);
   } finally {
     clearTimeout(timeout);

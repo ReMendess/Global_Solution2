@@ -6,7 +6,7 @@ Aplicação do cidadão e da administração, consumindo **exclusivamente** a AP
 ## Requisitos
 
 - Node.js 22 (verificado: 22.17.0) e npm 10 (verificado: 10.9.2).
-- Backend em execução em `http://127.0.0.1:8000` (`cd backend; python -m uvicorn app.main:app --port 8000`).
+- Backend em execução (`cd backend; python -m uvicorn app.main:app --host 0.0.0.0 --port 8000`).
 - Expo Go no celular (SDK 57) para testar no dispositivo.
 
 ## Instalação

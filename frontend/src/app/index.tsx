@@ -9,6 +9,7 @@ import { StatCard } from '@/components/states';
 import { colors, radius, spacing, typography } from '@/constants/theme';
 import { useAsync } from '@/hooks/use-async';
 import { api } from '@/services/api';
+import { resolveApiBaseUrl } from '@/services/config';
 import { useProfile } from '@/state/profile-context';
 
 const ATALHOS = [
@@ -77,6 +78,7 @@ export default function HomeScreen() {
       {isAdmin ? (
         <>
           <Card title="Status do sistema" subtitle="Informações técnicas (visível só para admin)">
+            <Text style={styles.apiUrl}>Conectando em: {resolveApiBaseUrl()}</Text>
             <View style={styles.heroStatus}>
               <Badge
                 label={`API: ${statusApi}`}
@@ -140,6 +142,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: spacing.sm,
+  },
+  apiUrl: {
+    fontSize: typography.caption,
+    color: colors.textMuted,
   },
   grid: {
     flexDirection: 'row',
