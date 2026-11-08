@@ -1,10 +1,30 @@
 # Smart Clean City
 
-**Plataforma Inteligente de Monitoramento e Gestão de Resíduos Urbanos**
+<p align="center">
+  <a href="https://www.fiap.com.br/"><img src="assets/logo-fiap.png" alt="FIAP" width="30%"></a>
+</p>
 
-Projeto acadêmico da **FIAP Global Solution 2026.2 — CitizenTech** (desenvolvimento individual,
-com assistência do Cline).
+<p align="center">
+  <strong>Smart Clean City</strong><br>
+</p>
 
+**Plataforma Inteligente de Monitoramento e Gestão de Resíduos e Descarte**
+
+**FIAP Global Solution 2026.2 — CitizenTech**.
+
+
+---
+
+## Autor
+
+| Nome | RM |
+|---|---|
+| [Renan de Oliveira Mendes](https://www.linkedin.com/in/renanmendes26/) | RM563145 |
+
+## Vídeo
+
+- **Fase 7:** 
+- **App:** 
 ---
 
 ## 1. Problema
