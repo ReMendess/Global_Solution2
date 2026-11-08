@@ -22,7 +22,7 @@
 
 ## Vídeo
 
-- **Vídeo:** 
+- **Vídeo:** https://youtu.be/1yjFrGTnjYM
 - **App:** https://youtube.com/shorts/LTwZ9T6SLUE
 ---
 
@@ -85,7 +85,7 @@ O cidadão tem acesso as funcionalidades de criar um registro e acompanhar, enqu
 
 A aplicação mobile foi desenvolvida de forma responsiva, testada e disponibilizada usando Expo Go.
 
-<img src="/assets/App.jpeg" widht="80%">
+<img src="/assets/App.jpeg" widht="40%">
 
 ### 2.2 Funcionalidades
 
