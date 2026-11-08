@@ -34,12 +34,12 @@ export default function HomeScreen() {
   const { isAdmin } = useProfile();
   // As informações técnicas (status da API, versão, banco, modelo) só são
   // carregadas para o perfil administrador.
-  const { data: health, error } = useAsync(
+  const { data: health, loading, error } = useAsync(
     () => (isAdmin ? api.health() : Promise.resolve(null)),
     [isAdmin],
   );
 
-  const statusApi = health ? health.status : '—';
+  const statusApi = loading ? 'verificando…' : health ? health.status : 'indisponível';
 
   return (
     <Screen
@@ -85,9 +85,11 @@ export default function HomeScreen() {
               />
               <Badge
                 label={
-                  health?.model_loaded
-                    ? 'Classificação por IA: ativa'
-                    : 'Classificação por IA: aguardando modelo'
+                  loading
+                    ? 'Classificação: verificando…'
+                    : health?.model_loaded
+                      ? 'Classificação por IA: ativa'
+                      : 'Classificação por IA: sem modelo'
                 }
                 background={health?.model_loaded ? colors.accentSoft : colors.surfaceMuted}
                 textColor={health?.model_loaded ? colors.accent : colors.textMuted}
@@ -96,18 +98,22 @@ export default function HomeScreen() {
           </Card>
 
           <View style={styles.statsRow}>
-            <StatCard label="Versão da API" value={health?.version ?? '—'} hint={health?.environment} />
+            <StatCard
+              label="Versão da API"
+              value={loading ? '…' : (health?.version ?? '—')}
+              hint={health?.environment}
+            />
             <StatCard
               label="Banco de dados"
-              value={health?.database ?? '—'}
+              value={loading ? '…' : (health?.database ?? '—')}
               hint="SQLite local"
-              accent={health?.database === 'ok' ? colors.primary : colors.danger}
+              accent={loading ? colors.neutral : health?.database === 'ok' ? colors.primary : colors.danger}
             />
             <StatCard
               label="Modelo de visão"
-              value={health?.model_loaded ? 'carregado' : 'pendente'}
-              hint="Treinamento na FASE 3"
-              accent={health?.model_loaded ? colors.accent : colors.warning}
+              value={loading ? '…' : health?.model_loaded ? 'carregado' : 'indisponível'}
+              hint={health?.model_loaded ? 'MobileNetV2 treinado' : 'publicar pesos em ml/models'}
+              accent={loading ? colors.neutral : health?.model_loaded ? colors.accent : colors.warning}
             />
           </View>
         </>

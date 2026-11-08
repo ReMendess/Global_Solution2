@@ -26,10 +26,12 @@ export function AppNav() {
         <Text style={styles.brand}>Smart Clean City</Text>
         {NAV_ITEMS.map((item) => {
           const ativo =
-            item.href === '/' ? pathname === '/' : pathname.startsWith(item.href.split('/').slice(0, 2).join('/'));
+            item.href === '/'
+              ? pathname === '/'
+              : pathname.startsWith(item.href.split('/').slice(0, 2).join('/'));
           return (
-            <Link key={item.href} href={item.href} style={styles.link}>
-              <Text style={[styles.linkLabel, ativo ? styles.linkActive : null]}>{item.label}</Text>
+            <Link key={item.href} href={item.href} style={[styles.link, ativo ? styles.linkActive : null]}>
+              <Text style={[styles.linkLabel, ativo ? styles.linkLabelActive : null]}>{item.label}</Text>
             </Link>
           );
         })}
@@ -43,32 +45,36 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
     borderBottomWidth: 1,
     borderBottomColor: colors.border,
-    paddingVertical: spacing.sm,
+    paddingVertical: spacing.xs,
   },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.lg,
-    paddingHorizontal: spacing.lg,
-    minHeight: 44,
+    gap: spacing.xs,
+    paddingHorizontal: spacing.md,
+    minHeight: 40,
   },
   brand: {
-    fontSize: typography.subheading,
+    fontSize: typography.body,
     fontWeight: '800',
     color: colors.primary,
-    marginRight: spacing.sm,
+    marginRight: spacing.md,
   },
   link: {
     paddingVertical: spacing.xs,
-    paddingHorizontal: spacing.sm,
-    borderRadius: radius.sm,
+    paddingHorizontal: spacing.md,
+    borderRadius: radius.pill,
+  },
+  linkActive: {
+    backgroundColor: colors.primarySoft,
   },
   linkLabel: {
-    fontSize: typography.body,
+    fontSize: typography.caption,
     fontWeight: '600',
     color: colors.textMuted,
   },
-  linkActive: {
+  linkLabelActive: {
     color: colors.primary,
+    fontWeight: '700',
   },
 });

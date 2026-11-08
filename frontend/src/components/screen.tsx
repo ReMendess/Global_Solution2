@@ -87,12 +87,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   title: {
-    fontSize: typography.title,
+    fontSize: 22,
     fontWeight: '700',
     color: colors.text,
   },
   titleWide: {
-    fontSize: typography.title + 4,
+    fontSize: 26,
   },
   subtitle: {
     fontSize: typography.body,
